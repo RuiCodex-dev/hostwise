@@ -88,7 +88,9 @@ export function createApp({ qloo, narrator = null, config }) {
           }
         },
       });
-      return new Response(stream, { headers: { "content-type": "text/event-stream; charset=utf-8", "cache-control": "no-store", "x-accel-buffering": "no" } });
+      // Plain "text/event-stream" (SSE is UTF-8 by definition): with a charset parameter, IIS/ARR
+      // reverse proxies were measured to buffer the whole stream until the plan finished.
+      return new Response(stream, { headers: { "content-type": "text/event-stream", "cache-control": "no-store", "x-accel-buffering": "no" } });
     }
 
     if (url.pathname.startsWith("/api/")) return json({ error: "Not found." }, 404);
