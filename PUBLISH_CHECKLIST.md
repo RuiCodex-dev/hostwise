@@ -3,8 +3,9 @@
 > **Status 2026-10-15 (owner approved both steps):** the repository is public at
 > <https://github.com/RuiCodex-dev/hostwise> (MIT) and the demo is live at
 > <https://hostwise.ruicodex.com>, hosted on the owner's own server (Docker container behind
-> nginx and IIS, Let's Encrypt certificate). Fly.io/Render below were not used. Remaining: the
-> Devpost submission (section 3).
+> nginx and IIS, Let's Encrypt certificate). Fly.io/Render below were not used. The demo
+> video is public at <https://youtu.be/GUgN72GwtE0> and the project was **submitted** to Devpost
+> on 2026-10-15: <https://devpost.com/software/hostwise> (section 3 done).
 
 Two separate approvals were needed before submission:
 

@@ -1,7 +1,9 @@
 # Devpost submission draft: Hostwise
 
-> Draft for the owner. The repo is public and the demo is live (2026-10-15).
-> Nothing here has been submitted to Devpost yet.
+> **Submitted 2026-10-15** to the Qloo Agentic Hackathon as https://devpost.com/software/hostwise
+> (status on the hackathon's My projects page: SUBMITTED; editable until 2026-10-30 23:45 EDT).
+> The public story on Devpost is this file from *Inspiration* to *AI disclosure*, plus the
+> testing instructions and a links footer.
 
 - **Project name:** Hostwise
 - **Tagline (under 200 chars):** A hosting agent that plans dinner for people who don't share a
@@ -9,9 +11,11 @@
   taste graph.
 - **Live demo:** https://hostwise.ruicodex.com
 - **Code:** https://github.com/RuiCodex-dev/hostwise (MIT)
-- **Video (optional):** `video/demo-final.mp4` (1 min 28 s)
+- **Video:** https://youtu.be/GUgN72GwtE0 (YouTube, public, RuiCodexApps; source `video/demo-final.mp4`, 1 min 28 s; details in `video/YOUTUBE.md`)
 - **Built with:** Qloo Taste AI API (search, insights, explainability, tag insights,
   analysis/compare), Node.js 22, vanilla JavaScript, Server-Sent Events, HyperFrames (video)
+  (Devpost tags: qloo, node.js, javascript, server-sent-events, html5, css3, docker, nginx,
+  hyperframes)
 - **Team / organisation:** Rui Codex
 
 ## Inspiration
@@ -124,8 +128,9 @@ with a location filter when the host would rather go out.
 ## AI disclosure
 
 Mood imagery (table photographs with no people or text) was generated with Google Flow
-(Nano Banana Pro) and graded by hand; narration uses Microsoft Edge neural TTS. All product
-UI, footage, code, copy, dish library and music are original. Details:
+(Nano Banana Pro) and graded by hand; narration uses Microsoft Edge neural TTS. The music in the
+demo video is synthesised in code, and no AI-generated video was used. All product UI,
+footage, code, copy and the dish library are original. Details:
 `design/GENERATED_ASSETS.md`.
 
 ## Testing instructions for judges
