@@ -1,0 +1,15 @@
+{
+  "voice": "en-US-EmmaMultilingualNeural",
+  "rate": "-4%",
+  "gap": 0.55,
+  "scenes": [
+    { "id": "open", "lead": 1.4, "text": "Six colleagues. Six different tastes. One table. And tonight, you're the host." },
+    { "id": "problem", "text": "Ask a chatbot, and you'll get a crowd-pleasing film and some pasta. Someone always spends the evening being polite." },
+    { "id": "builder", "text": "Hostwise starts with what each guest actually loves: a couple of films, artists, shows or books. Each one is matched in Qloo's taste graph, and the names never leave your browser." },
+    { "id": "agent", "text": "Then the agent plans. It pools the whole table, scores every option against each guest on their own, and critiques its own pick. Here, The Smiths would leave Ana and Leila behind, so it re-plans from their side of the graph." },
+    { "id": "results", "text": "You get seating built from what neighbours really share, a menu inferred from cross-domain taste and adapted to dietary needs, a soundtrack in three moods, and a film short enough for after dinner." },
+    { "id": "evidence", "text": "And every pick shows its evidence: how well it fits each guest, which favourites pulled it in, and what a single pooled recommendation would have missed." },
+    { "id": "qloo", "text": "Under the hood: Qloo search, insights with explainability, per-guest ranking, cuisine tag affinities and audience comparison. About fifty calls per evening, cached and rate-limited." },
+    { "id": "end", "tail": 3.2, "text": "Hostwise. Dinner for people who don't share a taste. Yet." }
+  ]
+}

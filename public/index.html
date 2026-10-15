@@ -1,0 +1,182 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Hostwise: dinner for people who don't share a taste. Yet.</title>
+  <meta name="description" content="An agent that plans a dinner party for a mixed group: menu, soundtrack, after-dinner film, seating and conversation, grounded in Qloo's cross-domain taste graph.">
+  <meta name="theme-color" content="#3B2433">
+  <meta property="og:title" content="Hostwise">
+  <meta property="og:description" content="Dinner for people who don't share a taste. Yet. A taste-grounded hosting agent built on Qloo.">
+  <meta property="og:image" content="/img/og.jpg">
+  <link rel="icon" href="/img/favicon.svg" type="image/svg+xml">
+  <link rel="preload" href="/fonts/instrument-serif-latin-400-normal.woff2" as="font" type="font/woff2" crossorigin>
+  <link rel="preload" href="/fonts/hanken-grotesk-latin-400-normal.woff2" as="font" type="font/woff2" crossorigin>
+  <link rel="stylesheet" href="/css/app.css">
+  <script type="module" src="/js/app.js"></script>
+</head>
+<body>
+  <a class="skip" href="#builder">Skip to the table</a>
+
+  <header class="topbar" id="top">
+    <a class="wordmark" href="/" aria-label="Hostwise home">Host<em>wise</em></a>
+    <nav aria-label="Primary">
+      <a href="#how">How it works</a>
+      <a href="#privacy">Privacy</a>
+      <a class="nav-cta" href="#builder">Plan a dinner</a>
+    </nav>
+  </header>
+
+  <main>
+    <section class="hero" aria-labelledby="hero-title">
+      <picture>
+        <source srcset="/img/hero-1366.webp 1366w, /img/hero-800.webp 800w" sizes="100vw" type="image/webp">
+        <img class="hero-img" src="/img/hero-1366.webp" alt="A long candlelit dinner table set with linen, bread and stoneware, just before guests sit down." width="1366" height="758" fetchpriority="high">
+      </picture>
+      <div class="hero-copy">
+        <p class="eyebrow">A hosting agent, grounded in Qloo's taste graph</p>
+        <h1 id="hero-title">Dinner for people who don't share a taste. <em>Yet.</em></h1>
+        <p class="lede">Give Hostwise two or three favourite films, songs, shows or books for each guest. Its agent works across Qloo's cultural graph to plan the menu, the soundtrack, the film for after, who sits next to whom, and what they'll talk about, then checks that nobody is left out.</p>
+        <div class="hero-actions">
+          <a class="btn btn-primary" href="#builder">Set your table <svg class="icon" aria-hidden="true"><use href="/img/icons.svg#i-arrow-right"/></svg></a>
+          <button class="btn btn-ghost-light" type="button" data-sample="neighbours">Try a sample table</button>
+        </div>
+      </div>
+    </section>
+
+    <section class="how" id="how" aria-labelledby="how-title">
+      <h2 id="how-title" class="section-title">How the agent plans an evening</h2>
+      <ol class="steps">
+        <li>
+          <span class="step-n">1</span>
+          <h3>Pool the table</h3>
+          <p>Every guest's favourites go to Qloo together, across films, music, series, books and games, to find what the room as a whole leans towards.</p>
+        </li>
+        <li>
+          <span class="step-n">2</span>
+          <h3>Score for each guest</h3>
+          <p>The shortlist is then scored against each guest's taste on its own, so one person's favourite can't quietly drown out another's.</p>
+        </li>
+        <li>
+          <span class="step-n">3</span>
+          <h3>Critique and re-plan</h3>
+          <p>If anyone would be left out, the agent fetches picks from their side of the graph and re-scores them for everyone. It also checks film length and dietary needs.</p>
+        </li>
+        <li>
+          <span class="step-n">4</span>
+          <h3>Seat and spark</h3>
+          <p>Qloo's audience comparison shows what each pair of guests has in common. That decides the seating and writes the conversation cards.</p>
+        </li>
+      </ol>
+    </section>
+
+    <section class="builder" id="builder" aria-labelledby="builder-title">
+      <div class="builder-head">
+        <div>
+          <h2 id="builder-title" class="section-title">Who's coming?</h2>
+          <p class="muted">Two to eight guests. One to four favourites each, in any mix of domains.</p>
+        </div>
+        <div class="samples" role="group" aria-label="Sample tables">
+          <span class="muted small">Or start from</span>
+          <button type="button" class="chip" data-sample="neighbours">New neighbours</button>
+          <button type="button" class="chip" data-sample="offsite">Team offsite</button>
+          <button type="button" class="chip" data-sample="inlaws">Meeting the in-laws</button>
+        </div>
+      </div>
+
+      <div class="guests" id="guests"></div>
+
+      <div class="builder-foot">
+        <button type="button" class="btn btn-quiet" id="add-guest"><svg class="icon" aria-hidden="true"><use href="/img/icons.svg#i-plus"/></svg> Add a guest</button>
+        <p class="privacy-line" id="privacy"><svg class="icon" aria-hidden="true"><use href="/img/icons.svg#i-lock"/></svg> Guest names stay in your browser. Only the favourites you pick are sent to Qloo; dietary needs are used on our server to choose dishes and are never sent to Qloo.</p>
+        <button type="button" class="btn btn-primary btn-lg" id="plan-btn" disabled>Plan the evening <svg class="icon" aria-hidden="true"><use href="/img/icons.svg#i-sparkles"/></svg></button>
+        <p class="form-hint" id="plan-hint" aria-live="polite"></p>
+      </div>
+    </section>
+
+    <section class="evening" id="evening" hidden aria-labelledby="evening-title">
+      <div class="evening-grid">
+        <aside class="trace" aria-labelledby="trace-title">
+          <div class="trace-inner" id="trace-scroll">
+            <div class="trace-head">
+              <h2 id="trace-title">Agent at work</h2>
+              <p class="trace-usage" id="trace-usage"></p>
+            </div>
+            <ol class="trace-list" id="trace" aria-live="polite" aria-relevant="additions"></ol>
+          </div>
+        </aside>
+
+        <div class="plan" id="plan">
+          <header class="plan-head">
+            <p class="eyebrow dark">Tonight's plan</p>
+            <h2 id="evening-title" class="plan-title">An evening for <span id="guest-names"></span></h2>
+            <p class="host-note" id="host-note"><span class="skeleton-line"></span><span class="skeleton-line short"></span></p>
+          </header>
+
+          <article class="plan-section" id="sec-seating" data-state="waiting">
+            <div class="sec-label"><svg class="icon"><use href="/img/icons.svg#i-armchair"/></svg> Seating</div>
+            <div class="sec-body"></div>
+          </article>
+          <article class="plan-section" id="sec-menu" data-state="waiting">
+            <div class="sec-label"><svg class="icon"><use href="/img/icons.svg#i-utensils"/></svg> Menu</div>
+            <div class="sec-body"></div>
+          </article>
+          <article class="plan-section" id="sec-soundtrack" data-state="waiting">
+            <div class="sec-label"><svg class="icon"><use href="/img/icons.svg#i-disc-3"/></svg> Soundtrack</div>
+            <div class="sec-body"></div>
+          </article>
+          <article class="plan-section" id="sec-film" data-state="waiting">
+            <div class="sec-label"><svg class="icon"><use href="/img/icons.svg#i-clapperboard"/></svg> After dinner</div>
+            <div class="sec-body"></div>
+          </article>
+          <article class="plan-section" id="sec-deck" data-state="waiting">
+            <div class="sec-label"><svg class="icon"><use href="/img/icons.svg#i-messages-square"/></svg> Conversation cards</div>
+            <div class="sec-body"></div>
+          </article>
+
+          <div class="plan-actions">
+            <button type="button" class="btn btn-quiet" id="print-btn"><svg class="icon" aria-hidden="true"><use href="/img/icons.svg#i-printer"/></svg> Print the host card</button>
+            <button type="button" class="btn btn-quiet" id="edit-btn"><svg class="icon" aria-hidden="true"><use href="/img/icons.svg#i-rotate-ccw"/></svg> Change the guest list</button>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="closing" aria-labelledby="closing-title">
+      <picture>
+        <source srcset="/img/afterglow-1366.webp 1366w, /img/afterglow-800.webp 800w" sizes="100vw" type="image/webp">
+        <img src="/img/afterglow-1366.webp" alt="The same table late at night: candles burned low, empty glasses, napkins left behind." width="1366" height="758" loading="lazy">
+      </picture>
+      <div class="closing-copy">
+        <h2 id="closing-title">Why not just ask a chatbot?</h2>
+        <p>A language model will happily suggest "a crowd-pleasing film and some Italian food". It cannot tell you that the crowd-pleaser leaves one guest at the bottom of their own taste, or which two people at your table quietly share a soft spot for funk. Hostwise can, because every pick is scored against each guest in Qloo's taste graph, and the evidence is right there on the plan.</p>
+        <p class="small muted-light">Qloo results describe aggregate cultural affinities, not individuals. Hostwise uses them as a starting point for a good evening, not a verdict on anyone.</p>
+      </div>
+    </section>
+  </main>
+
+  <footer class="footer">
+    <p>Hostwise, made by <strong>Rui Codex</strong> for the Qloo Agentic Hackathon. Taste data: <a href="https://www.qloo.com/" rel="noopener">Qloo</a>. Open source under the MIT licence.</p>
+  </footer>
+
+  <template id="guest-tpl">
+    <div class="guest" role="group">
+      <div class="guest-top">
+        <label class="sr-only">Guest name</label>
+        <input class="guest-name" type="text" maxlength="24" placeholder="Guest name" autocomplete="off">
+        <button type="button" class="icon-btn guest-remove" aria-label="Remove guest"><svg class="icon"><use href="/img/icons.svg#i-x"/></svg></button>
+      </div>
+      <ul class="favs" aria-label="Favourites"></ul>
+      <form class="fav-form">
+        <label class="sr-only">Favourite type</label>
+        <select class="fav-kind"></select>
+        <label class="sr-only">Favourite title</label>
+        <input class="fav-text" type="text" maxlength="80" placeholder="A favourite film, artist, book..." autocomplete="off">
+        <button type="submit" class="icon-btn fav-find" aria-label="Find in Qloo"><svg class="icon"><use href="/img/icons.svg#i-search"/></svg></button>
+      </form>
+      <ul class="fav-results" hidden></ul>
+      <div class="diets" role="group" aria-label="Dietary needs"></div>
+    </div>
+  </template>
+</body>
+</html>

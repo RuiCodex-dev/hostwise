@@ -1,0 +1,12 @@
+.git
+.cache
+.env
+.env.*
+node_modules
+design
+press
+video
+docs
+test
+scripts
+*.md

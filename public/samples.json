@@ -1,0 +1,38 @@
+{
+  "tables": [
+    {
+      "id": "neighbours",
+      "title": "The new neighbours",
+      "blurb": "Four people on the same street who have never shared a meal.",
+      "guests": [
+        { "name": "Maya", "favourites": [["Amélie", "movie"], ["Fleetwood Mac", "artist"], ["The Great British Bake Off", "tv_show"]], "diets": ["vegetarian"] },
+        { "name": "Jon", "favourites": [["Mad Max: Fury Road", "movie"], ["Daft Punk", "artist"], ["Elden Ring", "video_game"]], "diets": [] },
+        { "name": "Priya", "favourites": [["Pride and Prejudice", "book"], ["Taylor Swift", "artist"], ["Gilmore Girls", "tv_show"]], "diets": ["no_alcohol"] },
+        { "name": "Luc", "favourites": [["Anthony Bourdain: Parts Unknown", "tv_show"], ["Kendrick Lamar", "artist"], ["The Godfather", "movie"]], "diets": [] }
+      ]
+    },
+    {
+      "id": "offsite",
+      "title": "Team offsite dinner",
+      "blurb": "Six colleagues from three countries after a long day of workshops.",
+      "guests": [
+        { "name": "Ana", "favourites": [["Coco", "movie"], ["Rosalía", "artist"]], "diets": [] },
+        { "name": "Tom", "favourites": [["The Office", "tv_show"], ["Arctic Monkeys", "artist"]], "diets": ["gluten_free"] },
+        { "name": "Kenji", "favourites": [["Spirited Away", "movie"], ["Ryuichi Sakamoto", "artist"]], "diets": [] },
+        { "name": "Sofia", "favourites": [["Sapiens", "book"], ["Serial", "podcast"]], "diets": ["vegan"] },
+        { "name": "Ben", "favourites": [["Top Gun: Maverick", "movie"], ["Bruce Springsteen", "artist"]], "diets": [] },
+        { "name": "Leila", "favourites": [["Normal People", "book"], ["Billie Eilish", "artist"]], "diets": ["nut_free"] }
+      ]
+    },
+    {
+      "id": "inlaws",
+      "title": "Meeting the in-laws",
+      "blurb": "Three generations, one table, no obvious common ground.",
+      "guests": [
+        { "name": "Grandad", "favourites": [["The Great Escape", "movie"], ["Frank Sinatra", "artist"]], "diets": [] },
+        { "name": "Mum", "favourites": [["Downton Abbey", "tv_show"], ["Adele", "artist"]], "diets": ["dairy_free"] },
+        { "name": "Zoe", "favourites": [["Stardew Valley", "video_game"], ["Phoebe Bridgers", "artist"]], "diets": ["vegan"] }
+      ]
+    }
+  ]
+}

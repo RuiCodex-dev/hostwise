@@ -1,0 +1,24 @@
+# Secrets never live in this repo
+.env
+.env.*
+!.env.example
+*.key
+# Private Qloo response cache (Qloo data must not be published)
+.cache/
+# Raw image generations (curated, graded picks live in design/art and public/img)
+design/gen/
+# Video build intermediates
+video/hyperframes/node_modules/
+video/hyperframes/renders/
+video/work/
+node_modules/
+*.log
+.DS_Store
+Thumbs.db
+# Heavy video build inputs/outputs (regenerate with video/README.md; the final MP4 is uploaded separately)
+video/hyperframes/assets/clips/
+video/hyperframes/assets/*.wav
+video/hyperframes/.hyperframes/
+video/*.mp4
+video/hyperframes/AGENTS.md
+video/hyperframes/CLAUDE.md

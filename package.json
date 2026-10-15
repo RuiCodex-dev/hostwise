@@ -1,0 +1,16 @@
+{
+  "name": "hostwise",
+  "version": "1.0.0",
+  "description": "Hostwise: an agent that plans a dinner party for people with different tastes, grounded in Qloo's cross-domain taste graph.",
+  "type": "module",
+  "license": "MIT",
+  "author": "Rui Codex",
+  "private": true,
+  "engines": { "node": ">=22" },
+  "scripts": {
+    "start": "node server/node.js",
+    "dev": "node --watch server/node.js",
+    "test": "node --test test/*.test.js",
+    "secret-scan": "node scripts/secret-scan.mjs"
+  }
+}

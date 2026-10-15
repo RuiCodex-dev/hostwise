@@ -1,0 +1,1216 @@
+{
+ "total": 87.58,
+ "scenes": [
+  {
+   "id": "open",
+   "start": 1.4,
+   "end": 7.952,
+   "text": "Six colleagues. Six different tastes. One table. And tonight, you're the host.",
+   "words": [
+    {
+     "w": "Six",
+     "t": 1.491,
+     "d": 0.299
+    },
+    {
+     "w": "colleagues",
+     "t": 1.804,
+     "d": 0.755
+    },
+    {
+     "w": "Six",
+     "t": 2.962,
+     "d": 0.299
+    },
+    {
+     "w": "different",
+     "t": 3.275,
+     "d": 0.391
+    },
+    {
+     "w": "tastes",
+     "t": 3.679,
+     "d": 0.638
+    },
+    {
+     "w": "One",
+     "t": 4.733,
+     "d": 0.247
+    },
+    {
+     "w": "table",
+     "t": 4.994,
+     "d": 0.573
+    },
+    {
+     "w": "And",
+     "t": 5.996,
+     "d": 0.13
+    },
+    {
+     "w": "tonight",
+     "t": 6.14,
+     "d": 0.547
+    },
+    {
+     "w": "you're",
+     "t": 6.752,
+     "d": 0.13
+    },
+    {
+     "w": "the",
+     "t": 6.895,
+     "d": 0.091
+    },
+    {
+     "w": "host",
+     "t": 6.999,
+     "d": 0.56
+    }
+   ]
+  },
+  {
+   "id": "problem",
+   "start": 8.502,
+   "end": 15.942,
+   "text": "Ask a chatbot, and you'll get a crowd-pleasing film and some pasta. Someone always spends the evening being polite.",
+   "words": [
+    {
+     "w": "Ask",
+     "t": 8.593,
+     "d": 0.26
+    },
+    {
+     "w": "a",
+     "t": 8.867,
+     "d": 0.052
+    },
+    {
+     "w": "chatbot",
+     "t": 8.932,
+     "d": 0.651
+    },
+    {
+     "w": "and",
+     "t": 9.869,
+     "d": 0.091
+    },
+    {
+     "w": "you'll",
+     "t": 9.973,
+     "d": 0.156
+    },
+    {
+     "w": "get",
+     "t": 10.143,
+     "d": 0.156
+    },
+    {
+     "w": "a",
+     "t": 10.312,
+     "d": 0.065
+    },
+    {
+     "w": "crowd-pleasing",
+     "t": 10.39,
+     "d": 0.82
+    },
+    {
+     "w": "film",
+     "t": 11.223,
+     "d": 0.339
+    },
+    {
+     "w": "and",
+     "t": 11.575,
+     "d": 0.117
+    },
+    {
+     "w": "some",
+     "t": 11.705,
+     "d": 0.169
+    },
+    {
+     "w": "pasta",
+     "t": 11.887,
+     "d": 0.599
+    },
+    {
+     "w": "Someone",
+     "t": 12.903,
+     "d": 0.43
+    },
+    {
+     "w": "always",
+     "t": 13.346,
+     "d": 0.391
+    },
+    {
+     "w": "spends",
+     "t": 13.749,
+     "d": 0.312
+    },
+    {
+     "w": "the",
+     "t": 14.075,
+     "d": 0.078
+    },
+    {
+     "w": "evening",
+     "t": 14.166,
+     "d": 0.456
+    },
+    {
+     "w": "being",
+     "t": 14.635,
+     "d": 0.26
+    },
+    {
+     "w": "polite",
+     "t": 14.908,
+     "d": 0.638
+    }
+   ]
+  },
+  {
+   "id": "builder",
+   "start": 16.492,
+   "end": 28.036,
+   "text": "Hostwise starts with what each guest actually loves: a couple of films, artists, shows or books. Each one is matched in Qloo's taste graph, and the names never leave your browser.",
+   "words": [
+    {
+     "w": "Hostwise",
+     "t": 16.596,
+     "d": 0.573
+    },
+    {
+     "w": "starts",
+     "t": 17.182,
+     "d": 0.365
+    },
+    {
+     "w": "with",
+     "t": 17.56,
+     "d": 0.156
+    },
+    {
+     "w": "what",
+     "t": 17.729,
+     "d": 0.208
+    },
+    {
+     "w": "each",
+     "t": 17.95,
+     "d": 0.221
+    },
+    {
+     "w": "guest",
+     "t": 18.185,
+     "d": 0.299
+    },
+    {
+     "w": "actually",
+     "t": 18.497,
+     "d": 0.456
+    },
+    {
+     "w": "loves",
+     "t": 18.966,
+     "d": 0.482
+    },
+    {
+     "w": "a",
+     "t": 19.877,
+     "d": 0.052
+    },
+    {
+     "w": "couple",
+     "t": 19.943,
+     "d": 0.352
+    },
+    {
+     "w": "of",
+     "t": 20.307,
+     "d": 0.091
+    },
+    {
+     "w": "films",
+     "t": 20.411,
+     "d": 0.508
+    },
+    {
+     "w": "artists",
+     "t": 21.101,
+     "d": 0.495
+    },
+    {
+     "w": "shows",
+     "t": 21.622,
+     "d": 0.378
+    },
+    {
+     "w": "or",
+     "t": 22.013,
+     "d": 0.117
+    },
+    {
+     "w": "books",
+     "t": 22.143,
+     "d": 0.534
+    },
+    {
+     "w": "Each",
+     "t": 23.094,
+     "d": 0.247
+    },
+    {
+     "w": "one",
+     "t": 23.354,
+     "d": 0.26
+    },
+    {
+     "w": "is",
+     "t": 23.627,
+     "d": 0.156
+    },
+    {
+     "w": "matched",
+     "t": 23.797,
+     "d": 0.365
+    },
+    {
+     "w": "in",
+     "t": 24.174,
+     "d": 0.13
+    },
+    {
+     "w": "Qloo's",
+     "t": 24.318,
+     "d": 0.312
+    },
+    {
+     "w": "taste",
+     "t": 24.643,
+     "d": 0.352
+    },
+    {
+     "w": "graph",
+     "t": 25.008,
+     "d": 0.456
+    },
+    {
+     "w": "and",
+     "t": 25.763,
+     "d": 0.078
+    },
+    {
+     "w": "the",
+     "t": 25.854,
+     "d": 0.091
+    },
+    {
+     "w": "names",
+     "t": 25.958,
+     "d": 0.378
+    },
+    {
+     "w": "never",
+     "t": 26.349,
+     "d": 0.312
+    },
+    {
+     "w": "leave",
+     "t": 26.674,
+     "d": 0.195
+    },
+    {
+     "w": "your",
+     "t": 26.883,
+     "d": 0.13
+    },
+    {
+     "w": "browser",
+     "t": 27.026,
+     "d": 0.625
+    }
+   ]
+  },
+  {
+   "id": "agent",
+   "start": 28.586,
+   "end": 42.962,
+   "text": "Then the agent plans. It pools the whole table, scores every option against each guest on their own, and critiques its own pick. Here, The Smiths would leave Ana and Leila behind, so it re-plans from their side of the graph.",
+   "words": [
+    {
+     "w": "Then",
+     "t": 28.677,
+     "d": 0.169
+    },
+    {
+     "w": "the",
+     "t": 28.859,
+     "d": 0.091
+    },
+    {
+     "w": "agent",
+     "t": 28.964,
+     "d": 0.404
+    },
+    {
+     "w": "plans",
+     "t": 29.38,
+     "d": 0.638
+    },
+    {
+     "w": "It",
+     "t": 30.435,
+     "d": 0.13
+    },
+    {
+     "w": "pools",
+     "t": 30.578,
+     "d": 0.339
+    },
+    {
+     "w": "the",
+     "t": 30.93,
+     "d": 0.078
+    },
+    {
+     "w": "whole",
+     "t": 31.021,
+     "d": 0.247
+    },
+    {
+     "w": "table",
+     "t": 31.281,
+     "d": 0.469
+    },
+    {
+     "w": "scores",
+     "t": 32.063,
+     "d": 0.443
+    },
+    {
+     "w": "every",
+     "t": 32.518,
+     "d": 0.326
+    },
+    {
+     "w": "option",
+     "t": 32.857,
+     "d": 0.391
+    },
+    {
+     "w": "against",
+     "t": 33.261,
+     "d": 0.43
+    },
+    {
+     "w": "each",
+     "t": 33.703,
+     "d": 0.208
+    },
+    {
+     "w": "guest",
+     "t": 33.925,
+     "d": 0.299
+    },
+    {
+     "w": "on",
+     "t": 34.237,
+     "d": 0.091
+    },
+    {
+     "w": "their",
+     "t": 34.341,
+     "d": 0.195
+    },
+    {
+     "w": "own",
+     "t": 34.55,
+     "d": 0.312
+    },
+    {
+     "w": "and",
+     "t": 35.162,
+     "d": 0.13
+    },
+    {
+     "w": "critiques",
+     "t": 35.305,
+     "d": 0.495
+    },
+    {
+     "w": "its",
+     "t": 35.813,
+     "d": 0.143
+    },
+    {
+     "w": "own",
+     "t": 35.969,
+     "d": 0.182
+    },
+    {
+     "w": "pick",
+     "t": 36.164,
+     "d": 0.482
+    },
+    {
+     "w": "Here",
+     "t": 37.115,
+     "d": 0.391
+    },
+    {
+     "w": "The",
+     "t": 37.753,
+     "d": 0.104
+    },
+    {
+     "w": "Smiths",
+     "t": 37.87,
+     "d": 0.391
+    },
+    {
+     "w": "would",
+     "t": 38.273,
+     "d": 0.169
+    },
+    {
+     "w": "leave",
+     "t": 38.456,
+     "d": 0.26
+    },
+    {
+     "w": "Ana",
+     "t": 38.729,
+     "d": 0.273
+    },
+    {
+     "w": "and",
+     "t": 39.016,
+     "d": 0.143
+    },
+    {
+     "w": "Leila",
+     "t": 39.172,
+     "d": 0.286
+    },
+    {
+     "w": "behind",
+     "t": 39.471,
+     "d": 0.56
+    },
+    {
+     "w": "so",
+     "t": 40.344,
+     "d": 0.169
+    },
+    {
+     "w": "it",
+     "t": 40.526,
+     "d": 0.117
+    },
+    {
+     "w": "re-plans",
+     "t": 40.656,
+     "d": 0.534
+    },
+    {
+     "w": "from",
+     "t": 41.203,
+     "d": 0.169
+    },
+    {
+     "w": "their",
+     "t": 41.386,
+     "d": 0.156
+    },
+    {
+     "w": "side",
+     "t": 41.555,
+     "d": 0.286
+    },
+    {
+     "w": "of",
+     "t": 41.854,
+     "d": 0.078
+    },
+    {
+     "w": "the",
+     "t": 41.945,
+     "d": 0.091
+    },
+    {
+     "w": "graph",
+     "t": 42.05,
+     "d": 0.521
+    }
+   ]
+  },
+  {
+   "id": "results",
+   "start": 43.512,
+   "end": 55.56,
+   "text": "You get seating built from what neighbours really share, a menu inferred from cross-domain taste and adapted to dietary needs, a soundtrack in three moods, and a film short enough for after dinner.",
+   "words": [
+    {
+     "w": "You",
+     "t": 43.616,
+     "d": 0.091
+    },
+    {
+     "w": "get",
+     "t": 43.72,
+     "d": 0.195
+    },
+    {
+     "w": "seating",
+     "t": 43.929,
+     "d": 0.378
+    },
+    {
+     "w": "built",
+     "t": 44.319,
+     "d": 0.26
+    },
+    {
+     "w": "from",
+     "t": 44.593,
+     "d": 0.182
+    },
+    {
+     "w": "what",
+     "t": 44.788,
+     "d": 0.169
+    },
+    {
+     "w": "neighbours",
+     "t": 44.97,
+     "d": 0.404
+    },
+    {
+     "w": "really",
+     "t": 45.387,
+     "d": 0.247
+    },
+    {
+     "w": "share",
+     "t": 45.647,
+     "d": 0.456
+    },
+    {
+     "w": "a",
+     "t": 46.624,
+     "d": 0.026
+    },
+    {
+     "w": "menu",
+     "t": 46.663,
+     "d": 0.339
+    },
+    {
+     "w": "inferred",
+     "t": 47.015,
+     "d": 0.469
+    },
+    {
+     "w": "from",
+     "t": 47.496,
+     "d": 0.195
+    },
+    {
+     "w": "cross-domain",
+     "t": 47.705,
+     "d": 0.742
+    },
+    {
+     "w": "taste",
+     "t": 48.46,
+     "d": 0.456
+    },
+    {
+     "w": "and",
+     "t": 48.942,
+     "d": 0.104
+    },
+    {
+     "w": "adapted",
+     "t": 49.059,
+     "d": 0.495
+    },
+    {
+     "w": "to",
+     "t": 49.567,
+     "d": 0.091
+    },
+    {
+     "w": "dietary",
+     "t": 49.671,
+     "d": 0.612
+    },
+    {
+     "w": "needs",
+     "t": 50.296,
+     "d": 0.456
+    },
+    {
+     "w": "a",
+     "t": 51.259,
+     "d": 0.065
+    },
+    {
+     "w": "soundtrack",
+     "t": 51.338,
+     "d": 0.625
+    },
+    {
+     "w": "in",
+     "t": 51.976,
+     "d": 0.13
+    },
+    {
+     "w": "three",
+     "t": 52.119,
+     "d": 0.247
+    },
+    {
+     "w": "moods",
+     "t": 52.379,
+     "d": 0.495
+    },
+    {
+     "w": "and",
+     "t": 53.16,
+     "d": 0.13
+    },
+    {
+     "w": "a",
+     "t": 53.304,
+     "d": 0.052
+    },
+    {
+     "w": "film",
+     "t": 53.369,
+     "d": 0.299
+    },
+    {
+     "w": "short",
+     "t": 53.681,
+     "d": 0.286
+    },
+    {
+     "w": "enough",
+     "t": 53.981,
+     "d": 0.26
+    },
+    {
+     "w": "for",
+     "t": 54.254,
+     "d": 0.182
+    },
+    {
+     "w": "after",
+     "t": 54.45,
+     "d": 0.286
+    },
+    {
+     "w": "dinner",
+     "t": 54.749,
+     "d": 0.43
+    }
+   ]
+  },
+  {
+   "id": "evidence",
+   "start": 56.11,
+   "end": 65.494,
+   "text": "And every pick shows its evidence: how well it fits each guest, which favourites pulled it in, and what a single pooled recommendation would have missed.",
+   "words": [
+    {
+     "w": "And",
+     "t": 56.227,
+     "d": 0.169
+    },
+    {
+     "w": "every",
+     "t": 56.41,
+     "d": 0.312
+    },
+    {
+     "w": "pick",
+     "t": 56.735,
+     "d": 0.247
+    },
+    {
+     "w": "shows",
+     "t": 56.995,
+     "d": 0.312
+    },
+    {
+     "w": "its",
+     "t": 57.321,
+     "d": 0.169
+    },
+    {
+     "w": "evidence",
+     "t": 57.503,
+     "d": 0.625
+    },
+    {
+     "w": "how",
+     "t": 58.61,
+     "d": 0.117
+    },
+    {
+     "w": "well",
+     "t": 58.74,
+     "d": 0.234
+    },
+    {
+     "w": "it",
+     "t": 58.988,
+     "d": 0.104
+    },
+    {
+     "w": "fits",
+     "t": 59.105,
+     "d": 0.339
+    },
+    {
+     "w": "each",
+     "t": 59.456,
+     "d": 0.208
+    },
+    {
+     "w": "guest",
+     "t": 59.678,
+     "d": 0.495
+    },
+    {
+     "w": "which",
+     "t": 60.381,
+     "d": 0.195
+    },
+    {
+     "w": "favourites",
+     "t": 60.589,
+     "d": 0.508
+    },
+    {
+     "w": "pulled",
+     "t": 61.11,
+     "d": 0.286
+    },
+    {
+     "w": "it",
+     "t": 61.41,
+     "d": 0.104
+    },
+    {
+     "w": "in",
+     "t": 61.527,
+     "d": 0.26
+    },
+    {
+     "w": "and",
+     "t": 62.23,
+     "d": 0.13
+    },
+    {
+     "w": "what",
+     "t": 62.373,
+     "d": 0.143
+    },
+    {
+     "w": "a",
+     "t": 62.529,
+     "d": 0.052
+    },
+    {
+     "w": "single",
+     "t": 62.594,
+     "d": 0.378
+    },
+    {
+     "w": "pooled",
+     "t": 62.985,
+     "d": 0.326
+    },
+    {
+     "w": "recommendation",
+     "t": 63.324,
+     "d": 0.898
+    },
+    {
+     "w": "would",
+     "t": 64.235,
+     "d": 0.13
+    },
+    {
+     "w": "have",
+     "t": 64.378,
+     "d": 0.169
+    },
+    {
+     "w": "missed",
+     "t": 64.561,
+     "d": 0.547
+    }
+   ]
+  },
+  {
+   "id": "qloo",
+   "start": 66.044,
+   "end": 78.452,
+   "text": "Under the hood: Qloo search, insights with explainability, per-guest ranking, cuisine tag affinities and audience comparison. About fifty calls per evening, cached and rate-limited.",
+   "words": [
+    {
+     "w": "Under",
+     "t": 66.135,
+     "d": 0.26
+    },
+    {
+     "w": "the",
+     "t": 66.409,
+     "d": 0.091
+    },
+    {
+     "w": "hood",
+     "t": 66.513,
+     "d": 0.378
+    },
+    {
+     "w": "Qloo",
+     "t": 67.307,
+     "d": 0.234
+    },
+    {
+     "w": "search",
+     "t": 67.554,
+     "d": 0.482
+    },
+    {
+     "w": "insights",
+     "t": 68.218,
+     "d": 0.534
+    },
+    {
+     "w": "with",
+     "t": 68.765,
+     "d": 0.13
+    },
+    {
+     "w": "explainability",
+     "t": 68.909,
+     "d": 0.977
+    },
+    {
+     "w": "per-guest",
+     "t": 70.211,
+     "d": 0.508
+    },
+    {
+     "w": "ranking",
+     "t": 70.731,
+     "d": 0.508
+    },
+    {
+     "w": "cuisine",
+     "t": 71.317,
+     "d": 0.443
+    },
+    {
+     "w": "tag",
+     "t": 71.773,
+     "d": 0.26
+    },
+    {
+     "w": "affinities",
+     "t": 72.047,
+     "d": 0.651
+    },
+    {
+     "w": "and",
+     "t": 72.711,
+     "d": 0.143
+    },
+    {
+     "w": "audience",
+     "t": 72.867,
+     "d": 0.469
+    },
+    {
+     "w": "comparison",
+     "t": 73.349,
+     "d": 0.833
+    },
+    {
+     "w": "About",
+     "t": 74.612,
+     "d": 0.312
+    },
+    {
+     "w": "fifty",
+     "t": 74.937,
+     "d": 0.365
+    },
+    {
+     "w": "calls",
+     "t": 75.315,
+     "d": 0.339
+    },
+    {
+     "w": "per",
+     "t": 75.666,
+     "d": 0.182
+    },
+    {
+     "w": "evening",
+     "t": 75.862,
+     "d": 0.534
+    },
+    {
+     "w": "cached",
+     "t": 76.708,
+     "d": 0.417
+    },
+    {
+     "w": "and",
+     "t": 77.138,
+     "d": 0.13
+    },
+    {
+     "w": "rate-limited",
+     "t": 77.281,
+     "d": 0.781
+    }
+   ]
+  },
+  {
+   "id": "end",
+   "start": 79.002,
+   "end": 83.826,
+   "text": "Hostwise. Dinner for people who don't share a taste. Yet.",
+   "words": [
+    {
+     "w": "Hostwise",
+     "t": 79.106,
+     "d": 0.794
+    },
+    {
+     "w": "Dinner",
+     "t": 80.33,
+     "d": 0.273
+    },
+    {
+     "w": "for",
+     "t": 80.617,
+     "d": 0.169
+    },
+    {
+     "w": "people",
+     "t": 80.799,
+     "d": 0.365
+    },
+    {
+     "w": "who",
+     "t": 81.176,
+     "d": 0.104
+    },
+    {
+     "w": "don't",
+     "t": 81.294,
+     "d": 0.273
+    },
+    {
+     "w": "share",
+     "t": 81.58,
+     "d": 0.26
+    },
+    {
+     "w": "a",
+     "t": 81.854,
+     "d": 0.052
+    },
+    {
+     "w": "taste",
+     "t": 81.919,
+     "d": 0.612
+    },
+    {
+     "w": "Yet",
+     "t": 82.947,
+     "d": 0.482
+    }
+   ]
+  }
+ ],
+ "captions": [
+  {
+   "text": "Six colleagues. Six different tastes.",
+   "start": 1.49,
+   "end": 4.47
+  },
+  {
+   "text": "One table. And tonight,",
+   "start": 4.73,
+   "end": 6.73
+  },
+  {
+   "text": "you're the host.",
+   "start": 6.75,
+   "end": 7.71
+  },
+  {
+   "text": "Ask a chatbot,",
+   "start": 8.59,
+   "end": 9.73
+  },
+  {
+   "text": "and you'll get a crowd-pleasing film and some",
+   "start": 9.87,
+   "end": 11.870000000000001
+  },
+  {
+   "text": "pasta. Someone always spends the evening being polite.",
+   "start": 11.89,
+   "end": 15.7
+  },
+  {
+   "text": "Hostwise starts with what each guest actually loves:",
+   "start": 16.6,
+   "end": 19.6
+  },
+  {
+   "text": "a couple of films,",
+   "start": 19.88,
+   "end": 21.07
+  },
+  {
+   "text": "artists, shows or books.",
+   "start": 21.1,
+   "end": 22.83
+  },
+  {
+   "text": "Each one is matched in Qloo's taste graph,",
+   "start": 23.09,
+   "end": 25.61
+  },
+  {
+   "text": "and the names never leave your browser.",
+   "start": 25.76,
+   "end": 27.8
+  },
+  {
+   "text": "Then the agent plans.",
+   "start": 28.68,
+   "end": 30.17
+  },
+  {
+   "text": "It pools the whole table,",
+   "start": 30.43,
+   "end": 31.9
+  },
+  {
+   "text": "scores every option against each guest on their",
+   "start": 32.06,
+   "end": 34.529999999999994
+  },
+  {
+   "text": "own, and critiques its own pick.",
+   "start": 34.55,
+   "end": 36.8
+  },
+  {
+   "text": "Here, The Smiths would leave Ana and Leila",
+   "start": 37.12,
+   "end": 39.449999999999996
+  },
+  {
+   "text": "behind, so it re-plans from their side of",
+   "start": 39.47,
+   "end": 41.93
+  },
+  {
+   "text": "the graph.",
+   "start": 41.95,
+   "end": 42.72
+  },
+  {
+   "text": "You get seating built from what neighbours really",
+   "start": 43.62,
+   "end": 45.629999999999995
+  },
+  {
+   "text": "share, a menu inferred from cross-domain taste and",
+   "start": 45.65,
+   "end": 49.04
+  },
+  {
+   "text": "adapted to dietary needs,",
+   "start": 49.06,
+   "end": 50.9
+  },
+  {
+   "text": "a soundtrack in three moods,",
+   "start": 51.26,
+   "end": 53.02
+  },
+  {
+   "text": "and a film short enough for after dinner.",
+   "start": 53.16,
+   "end": 55.33
+  },
+  {
+   "text": "And every pick shows its evidence:",
+   "start": 56.23,
+   "end": 58.28
+  },
+  {
+   "text": "how well it fits each guest,",
+   "start": 58.61,
+   "end": 60.32
+  },
+  {
+   "text": "which favourites pulled it in,",
+   "start": 60.38,
+   "end": 61.94
+  },
+  {
+   "text": "and what a single pooled recommendation would have",
+   "start": 62.23,
+   "end": 64.54
+  },
+  {
+   "text": "missed.",
+   "start": 64.56,
+   "end": 65.26
+  },
+  {
+   "text": "Under the hood:",
+   "start": 66.14,
+   "end": 67.04
+  },
+  {
+   "text": "Qloo search, insights with explainability,",
+   "start": 67.31,
+   "end": 70.04
+  },
+  {
+   "text": "per-guest ranking, cuisine tag affinities and audience comparison.",
+   "start": 70.21,
+   "end": 74.33
+  },
+  {
+   "text": "About fifty calls per evening,",
+   "start": 74.61,
+   "end": 76.55
+  },
+  {
+   "text": "cached and rate-limited.",
+   "start": 76.71,
+   "end": 78.21
+  }
+ ]
+}

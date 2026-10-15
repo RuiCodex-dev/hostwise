@@ -1,0 +1,282 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=1920, height=1080" />
+    <script src="https://cdn.jsdelivr.net/npm/gsap@3.14.2/dist/gsap.min.js"></script>
+    <style>
+      @font-face { font-family: "Instrument Serif"; src: url("assets/fonts/instrument-serif-latin-400-normal.woff2") format("woff2"); font-weight: 400; font-style: normal; }
+      @font-face { font-family: "Instrument Serif"; src: url("assets/fonts/instrument-serif-latin-400-italic.woff2") format("woff2"); font-weight: 400; font-style: italic; }
+      @font-face { font-family: "Hanken Grotesk"; src: url("assets/fonts/hanken-grotesk-latin-400-normal.woff2") format("woff2"); font-weight: 400; }
+      @font-face { font-family: "Hanken Grotesk"; src: url("assets/fonts/hanken-grotesk-latin-600-normal.woff2") format("woff2"); font-weight: 600; }
+      * { margin: 0; padding: 0; box-sizing: border-box; }
+      html, body { margin: 0; width: 1920px; height: 1080px; overflow: hidden; background: #2C1A26; }
+      #root { width: 100%; height: 100%; position: relative; overflow: hidden; background: #2C1A26; font-family: "Hanken Grotesk", sans-serif; color: #F3ECE1; }
+      .scene { position: absolute; inset: 0; overflow: hidden; }
+      .fill { position: absolute; inset: 0; }
+      .plate { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; }
+      .serif { font-family: "Instrument Serif", serif; font-weight: 400; }
+      .eyebrow { font: 600 22px/1 "Hanken Grotesk"; letter-spacing: .2em; text-transform: uppercase; color: #C1964A; }
+      /* open */
+      #open .shade { background: linear-gradient(90deg, rgba(28,17,24,.92) 0%, rgba(28,17,24,.6) 40%, rgba(28,17,24,.05) 70%); }
+      #open .copy { position: absolute; left: 140px; top: 300px; width: 900px; }
+      #open .l { display: block; font: 400 108px/1.02 "Instrument Serif"; color: #F3ECE1; }
+      #open .l.host { font-style: italic; color: #C1964A; font-size: 64px; margin-top: 30px; }
+      /* problem */
+      #problem { background: #2C1A26; }
+      #problem .half { position: absolute; right: 0; top: 0; width: 900px; height: 1080px; overflow: hidden; }
+      #problem .half .plate { object-position: 40% 50%; }
+      #problem .half::after { content: ""; position: absolute; inset: 0; background: linear-gradient(90deg, #2C1A26 0%, rgba(44,26,38,0) 40%); }
+      #problem .copy { position: absolute; left: 140px; top: 250px; width: 900px; }
+      .bubble { margin-top: 34px; background: #F3ECE1; color: #1E1916; border-radius: 26px 26px 26px 6px; padding: 30px 36px; font: 400 38px/1.35 "Hanken Grotesk"; width: 760px; position: relative; }
+      .bubble .strike { position: absolute; left: 30px; right: 30px; top: 50%; height: 4px; background: #B4532F; transform-origin: left center; }
+      #problem .polite { margin-top: 60px; font: italic 400 64px/1.12 "Instrument Serif"; color: #F3ECE1; width: 800px; }
+      /* app windows */
+      .linen { background: #F3ECE1; }
+      .win-group { position: absolute; left: 200px; top: 44px; width: 1520px; height: 889px; transform-origin: 50% 50%; }
+      .win { position: absolute; inset: 0; border-radius: 18px; background: #FBF7F0; box-shadow: 0 40px 80px -40px rgba(30,25,22,.55), 0 0 0 1px rgba(30,25,22,.12); overflow: hidden; }
+      .win .bar { height: 34px; background: #E9E0D3; display: flex; align-items: center; gap: 8px; padding: 0 16px; }
+      .win .bar i { width: 11px; height: 11px; border-radius: 50%; background: #CDBFAE; display: block; }
+      .win .bar span { margin-left: 14px; font: 600 15px/1 "Hanken Grotesk"; color: #5F554F; letter-spacing: .04em; }
+      .win-video { position: absolute; left: 0; top: 34px; width: 1520px; height: 855px; border-radius: 0 0 18px 18px; object-fit: cover; }
+      .badge { position: absolute; left: 200px; top: 948px; display: flex; align-items: center; gap: 12px; font: 600 22px/1 "Hanken Grotesk"; color: #3B2433; letter-spacing: .02em; }
+      .badge b { width: 12px; height: 12px; border-radius: 50%; background: #B4532F; display: block; }
+      /* agent */
+      #agent-scene .rail { position: absolute; right: 70px; top: 120px; width: 400px; }
+      .rail h3 { font: 400 50px/1.05 "Instrument Serif"; color: #1E1916; margin-bottom: 30px; }
+      .step { display: flex; gap: 18px; align-items: flex-start; padding: 22px 0; border-top: 1px solid rgba(30,25,22,.14); color: #1E1916; }
+      .step .n { font: italic 400 34px/1 "Instrument Serif"; color: #B4532F; width: 30px; }
+      .step .t { font: 600 27px/1.2 "Hanken Grotesk"; }
+      .step .d { font: 400 21px/1.35 "Hanken Grotesk"; color: #5A4E47; margin-top: 6px; }
+      .step.re .t { color: #9A4425; }
+      /* results */
+      .chip { position: absolute; right: 240px; top: 100px; padding: 14px 24px; border-radius: 999px; background: #3B2433; color: #F3ECE1; font: 600 24px/1 "Hanken Grotesk"; letter-spacing: .12em; text-transform: uppercase; }
+      /* evidence */
+      #evidence .card { position: absolute; left: 160px; top: 70px; width: 1080px; height: 776px; border-radius: 18px; overflow: hidden; background: #FBF7F0; box-shadow: 0 40px 80px -40px rgba(30,25,22,.5), 0 0 0 1px rgba(30,25,22,.1); }
+      #evidence .card img { position: absolute; left: 0; top: 0; width: 1080px; height: auto; transform-origin: 0 0; }
+      #evidence .notes { position: absolute; left: 1320px; top: 150px; width: 470px; color: #1E1916; }
+      .note { padding: 26px 0; border-top: 1px solid rgba(30,25,22,.14); }
+      .note .k { font: 600 18px/1 "Hanken Grotesk"; letter-spacing: .16em; text-transform: uppercase; color: #9A4425; margin-bottom: 12px; }
+      .note .v { font: 400 40px/1.12 "Instrument Serif"; }
+      /* qloo */
+      #qloo .copy { position: absolute; left: 140px; top: 84px; }
+      #qloo h2 { font: 400 76px/1 "Instrument Serif"; margin-top: 18px; }
+      .tools { position: absolute; left: 140px; top: 290px; width: 1640px; }
+      .tool { display: grid; grid-template-columns: 64px 520px 1fr; align-items: center; gap: 26px; padding: 22px 0; border-top: 1px solid rgba(243,236,225,.16); }
+      .tool .ic { width: 44px; height: 44px; fill: none; stroke: #C1964A; stroke-width: 1.6; stroke-linecap: round; stroke-linejoin: round; }
+      .tname { font: 600 30px/1.1 ui-monospace, Consolas, monospace; color: #F3ECE1; }
+      .tep { font: 400 20px/1.3 ui-monospace, Consolas, monospace; color: #C1964A; margin-top: 8px; }
+      .tool p { font: 400 27px/1.35 "Hanken Grotesk"; color: rgba(243,236,225,.86); }
+      .stats { position: absolute; left: 140px; top: 900px; display: flex; gap: 70px; }
+      .stat { font: 400 22px/1.3 "Hanken Grotesk"; color: rgba(243,236,225,.75); }
+      .stat b { display: block; font: 400 46px/1 "Instrument Serif"; color: #F3ECE1; margin-bottom: 6px; }
+      /* end */
+      #end .shade { background: linear-gradient(270deg, rgba(28,17,24,.95) 0%, rgba(28,17,24,.7) 50%, rgba(28,17,24,.25) 100%); }
+      #end .copy { position: absolute; right: 150px; top: 300px; width: 860px; text-align: right; }
+      #end .mark { font: 400 190px/1 "Instrument Serif"; color: #F3ECE1; }
+      #end .mark em { color: #C1964A; font-style: italic; }
+      #end .tag { margin-top: 26px; font: italic 400 50px/1.15 "Instrument Serif"; color: rgba(243,236,225,.9); }
+      #end .by { margin-top: 70px; font: 600 24px/1.5 "Hanken Grotesk"; letter-spacing: .18em; text-transform: uppercase; color: #C1964A; }
+      #end .small { font: 400 22px/1.5 "Hanken Grotesk"; color: rgba(243,236,225,.7); margin-top: 8px; letter-spacing: .02em; }
+      /* captions */
+      .cap { position: absolute; left: 0; right: 0; bottom: 34px; display: flex; justify-content: center; }
+      .cap span { background: rgba(28,17,24,.78); color: #F3ECE1; font: 400 34px/1.3 "Hanken Grotesk"; padding: 10px 24px; border-radius: 12px; max-width: 1500px; text-align: center; }
+      .ink { color: #1E1916; }
+    </style>
+  </head>
+  <body>
+    <div id="root" data-composition-id="main" data-start="0" data-duration="88.18" data-width="1920" data-height="1080">
+
+      <section class="scene clip" id="open" data-start="0.0" data-duration="8.65" data-track-index="1">
+        <div class="fill" id="open-kb"><img class="plate" src="assets/img/hero.jpg" alt="" /></div>
+        <div class="fill shade"></div>
+        <div class="copy">
+          <p class="eyebrow" id="open-eb">Hostwise</p>
+          <div style="height:30px"></div>
+          <span class="l" id="ol1">Six colleagues.</span>
+          <span class="l" id="ol2">Six different tastes.</span>
+          <span class="l" id="ol3">One table.</span>
+          <span class="l host" id="ol4">And tonight, you're the host.</span>
+        </div>
+      </section>
+
+      <section class="scene clip" id="problem" data-start="8.2" data-duration="8.44" data-track-index="1">
+        <div class="half"><img class="plate" id="prob-img" src="assets/img/talk.jpg" alt="" /></div>
+        <div class="copy">
+          <p class="eyebrow">Ask a generic chatbot</p>
+          <div class="bubble" id="bubble">"For a mixed group? Try a crowd-pleasing film and some pasta."<div class="strike" id="strike"></div></div>
+          <p class="polite" id="polite">Someone always spends the evening being polite.</p>
+        </div>
+      </section>
+
+      <section class="scene clip linen" id="builder-bg" data-start="16.19" data-duration="12.55" data-track-index="0"></section>
+      
+      <div class="win-group" id="builder-group">
+        <div class="win clip" id="builder-win" data-start="16.19" data-duration="12.55" data-track-index="2"><div class="bar"><i></i><i></i><i></i><span>Hostwise</span></div></div>
+        <video id="builder-vid" class="clip win-video" src="assets/clips/a_builder.mp4" muted playsinline data-start="16.19" data-duration="12.55" data-track-index="3" data-playback-rate="1.44"></video>
+      </div>
+      <div class="badge clip" id="builder-badge" data-start="16.19" data-duration="12.55" data-track-index="6"><b></b>Real app &middot; favourites matched live in Qloo &middot; 1.4&times; speed</div>
+
+      <section class="scene clip linen" id="agent-scene" data-start="28.29" data-duration="15.37" data-track-index="0">
+        <div class="rail">
+          <h3>The agent's loop</h3>
+          <div class="step" id="st1"><span class="n">1</span><div><div class="t">Pool the table</div><div class="d">Everyone's favourites, one Qloo request</div></div></div>
+          <div class="step" id="st2"><span class="n">2</span><div><div class="t">Score each guest alone</div><div class="d">Affinity per guest, per option</div></div></div>
+          <div class="step" id="st3"><span class="n">3</span><div><div class="t">Critique the pick</div><div class="d">Least-misery fairness test</div></div></div>
+          <div class="step re" id="st4"><span class="n">4</span><div><div class="t">Re-plan</div><div class="d">Pull picks from the left-out guest's side of the graph</div></div></div>
+        </div>
+      </section>
+      
+      <div class="win-group" id="agent-group">
+        <div class="win clip" id="agent-win" data-start="28.29" data-duration="15.37" data-track-index="2"><div class="bar"><i></i><i></i><i></i><span>Hostwise</span></div></div>
+        <video id="agent-vid" class="clip win-video" src="assets/clips/b_plan.mp4" muted playsinline data-start="28.29" data-duration="15.37" data-track-index="3" data-playback-rate="2.08"></video>
+      </div>
+      <div class="badge clip" id="agent-badge" data-start="28.29" data-duration="15.37" data-track-index="6"><b></b>Live run against the Qloo API &middot; 50 tool calls in 31 s &middot; 2&times; speed</div>
+
+      <section class="scene clip linen" id="results-bg" data-start="43.21" data-duration="13.05" data-track-index="0"></section>
+      
+      <div class="win-group" id="results-group">
+        <div class="win clip" id="results-win" data-start="43.21" data-duration="13.05" data-track-index="2"><div class="bar"><i></i><i></i><i></i><span>Hostwise</span></div></div>
+        <video id="results-vid" class="clip win-video" src="assets/clips/c_read.mp4" muted playsinline data-start="43.21" data-duration="13.05" data-track-index="3" data-playback-rate="1.9"></video>
+      </div>
+      <div class="badge clip" id="results-badge" data-start="43.21" data-duration="13.05" data-track-index="6"><b></b>The finished plan &middot; 1.9&times; speed</div>
+      <div class="chip clip" id="chip1" data-start="44.41" data-duration="2.2" data-track-index="7">Seating</div>
+      <div class="chip clip" id="chip2" data-start="46.61" data-duration="2.2" data-track-index="7">Menu</div>
+      <div class="chip clip" id="chip3" data-start="48.81" data-duration="2.2" data-track-index="7">Soundtrack</div>
+      <div class="chip clip" id="chip4" data-start="51.01" data-duration="2.2" data-track-index="7">After dinner</div>
+      <div class="chip clip" id="chip5" data-start="53.21" data-duration="3.05" data-track-index="7">Conversation cards</div>
+
+      <section class="scene clip linen" id="evidence" data-start="55.81" data-duration="10.38" data-track-index="1">
+        <div class="card"><img id="ev-img" src="assets/img/still_film.png" alt="" /></div>
+        <div class="notes">
+          <div class="note" id="n1"><div class="k">Fit for each guest</div><div class="v">Every pick, scored against every guest</div></div>
+          <div class="note" id="n2"><div class="k">Provenance</div><div class="v">Which favourites pulled it in</div></div>
+          <div class="note" id="n3"><div class="k">Counterfactual</div><div class="v">What one pooled request would have missed</div></div>
+        </div>
+      </section>
+
+      <section class="scene clip" id="qloo" data-start="65.74" data-duration="13.41" data-track-index="1">
+        <div class="copy"><p class="eyebrow">Under the hood</p><h2>What the agent asks Qloo</h2></div>
+        <div class="tools">
+          <div class="tool" id="tool0"><svg class="ic" viewBox="0 0 24 24" aria-hidden="true"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.3-4.3"/></svg><div><div class="tname">resolve_favourite</div><div class="tep">GET /search</div></div><p>Match each favourite a host types to one Qloo entity.</p></div>
+          <div class="tool" id="tool1"><svg class="ic" viewBox="0 0 24 24" aria-hidden="true"><path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M22 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg><div><div class="tname">pooled_recommendations</div><div class="tep">GET /v2/insights · explainability</div></div><p>What the whole table leans towards, and whose favourites pulled each pick in.</p></div>
+          <div class="tool" id="tool2"><svg class="ic" viewBox="0 0 24 24" aria-hidden="true"><path d="m16 16 3-8 3 8c-.87.65-1.92 1-3 1s-2.13-.35-3-1Z"/><path d="m2 16 3-8 3 8c-.87.65-1.92 1-3 1s-2.13-.35-3-1Z"/><path d="M7 21h10"/><path d="M12 3v18"/><path d="M3 7h2c2 0 5-1 7-2 2 1 5 2 7 2h2"/></svg><div><div class="tname">rank_for_guest</div><div class="tep">GET /v2/insights · filter.entities</div></div><p>Score the shortlist against each guest alone, then test for anyone left out.</p></div>
+          <div class="tool" id="tool3"><svg class="ic" viewBox="0 0 24 24" aria-hidden="true"><path d="M3 2v7c0 1.1.9 2 2 2h4a2 2 0 0 0 2-2V2"/><path d="M7 2v20"/><path d="M21 15V2a5 5 0 0 0-5 5v6c0 1.1.9 2 2 2h3Zm0 0v7"/></svg><div><div class="tname">cuisine_affinity</div><div class="tep">GET /v2/insights · filter.type=urn:tag</div></div><p>Which food cultures their films, music and books lean towards.</p></div>
+          <div class="tool" id="tool4"><svg class="ic" viewBox="0 0 24 24" aria-hidden="true"><path d="M14 9a2 2 0 0 1-2 2H6l-4 4V4a2 2 0 0 1 2-2h8a2 2 0 0 1 2 2z"/><path d="M18 9h2a2 2 0 0 1 2 2v11l-4-4h-6a2 2 0 0 1-2-2v-1"/></svg><div><div class="tname">shared_ground</div><div class="tep">GET /v2/analysis/compare</div></div><p>What two guests share and where they differ: seating and conversation cards.</p></div>
+        </div>
+        <div class="stats">
+          <div class="stat" id="s1"><b>~50 calls</b>per evening planned</div>
+          <div class="stat" id="s2"><b>Cached</b>privately, server side</div>
+          <div class="stat" id="s3"><b>Paced</b>with a daily cap on the key</div>
+          <div class="stat" id="s4"><b>Never sent</b>guest names or diets</div>
+        </div>
+      </section>
+
+      <section class="scene clip" id="end" data-start="78.7" data-duration="9.48" data-track-index="1">
+        <div class="fill" id="end-kb"><img class="plate" src="assets/img/afterglow.jpg" alt="" /></div>
+        <div class="fill shade"></div>
+        <div class="copy">
+          <div class="mark" id="mark">Host<em>wise</em></div>
+          <p class="tag" id="tag">Dinner for people who don't share a taste. Yet.</p>
+          <p class="by" id="by">Rui Codex</p>
+          <p class="small" id="small">Built on the Qloo Taste AI API for the Qloo Agentic Hackathon</p>
+        </div>
+      </section>
+
+      <audio id="mix" src="assets/mix.wav" data-start="0" data-duration="88.18" data-track-index="10" data-volume="1"></audio>
+
+      <div class="cap clip" id="cap0" data-start="1.49" data-duration="2.98" data-track-index="9"><span>Six colleagues. Six different tastes.</span></div>
+      <div class="cap clip" id="cap1" data-start="4.73" data-duration="2.0" data-track-index="9"><span>One table. And tonight,</span></div>
+      <div class="cap clip" id="cap2" data-start="6.75" data-duration="0.96" data-track-index="9"><span>you&#x27;re the host.</span></div>
+      <div class="cap clip" id="cap3" data-start="8.59" data-duration="1.14" data-track-index="9"><span>Ask a chatbot,</span></div>
+      <div class="cap clip" id="cap4" data-start="9.87" data-duration="2.0" data-track-index="9"><span>and you&#x27;ll get a crowd-pleasing film and some</span></div>
+      <div class="cap clip" id="cap5" data-start="11.89" data-duration="3.81" data-track-index="9"><span>pasta. Someone always spends the evening being polite.</span></div>
+      <div class="cap clip" id="cap6" data-start="16.6" data-duration="3.0" data-track-index="9"><span>Hostwise starts with what each guest actually loves:</span></div>
+      <div class="cap clip" id="cap7" data-start="19.88" data-duration="1.19" data-track-index="9"><span>a couple of films,</span></div>
+      <div class="cap clip" id="cap8" data-start="21.1" data-duration="1.73" data-track-index="9"><span>artists, shows or books.</span></div>
+      <div class="cap clip" id="cap9" data-start="23.09" data-duration="2.52" data-track-index="9"><span>Each one is matched in Qloo&#x27;s taste graph,</span></div>
+      <div class="cap clip" id="cap10" data-start="25.76" data-duration="2.04" data-track-index="9"><span>and the names never leave your browser.</span></div>
+      <div class="cap clip" id="cap11" data-start="28.68" data-duration="1.49" data-track-index="9"><span>Then the agent plans.</span></div>
+      <div class="cap clip" id="cap12" data-start="30.43" data-duration="1.47" data-track-index="9"><span>It pools the whole table,</span></div>
+      <div class="cap clip" id="cap13" data-start="32.06" data-duration="2.47" data-track-index="9"><span>scores every option against each guest on their</span></div>
+      <div class="cap clip" id="cap14" data-start="34.55" data-duration="2.25" data-track-index="9"><span>own, and critiques its own pick.</span></div>
+      <div class="cap clip" id="cap15" data-start="37.12" data-duration="2.33" data-track-index="9"><span>Here, The Smiths would leave Ana and Leila</span></div>
+      <div class="cap clip" id="cap16" data-start="39.47" data-duration="2.46" data-track-index="9"><span>behind, so it re-plans from their side of</span></div>
+      <div class="cap clip" id="cap17" data-start="41.95" data-duration="0.77" data-track-index="9"><span>the graph.</span></div>
+      <div class="cap clip" id="cap18" data-start="43.62" data-duration="2.01" data-track-index="9"><span>You get seating built from what neighbours really</span></div>
+      <div class="cap clip" id="cap19" data-start="45.65" data-duration="3.39" data-track-index="9"><span>share, a menu inferred from cross-domain taste and</span></div>
+      <div class="cap clip" id="cap20" data-start="49.06" data-duration="1.84" data-track-index="9"><span>adapted to dietary needs,</span></div>
+      <div class="cap clip" id="cap21" data-start="51.26" data-duration="1.76" data-track-index="9"><span>a soundtrack in three moods,</span></div>
+      <div class="cap clip" id="cap22" data-start="53.16" data-duration="2.17" data-track-index="9"><span>and a film short enough for after dinner.</span></div>
+      <div class="cap clip" id="cap23" data-start="56.23" data-duration="2.05" data-track-index="9"><span>And every pick shows its evidence:</span></div>
+      <div class="cap clip" id="cap24" data-start="58.61" data-duration="1.71" data-track-index="9"><span>how well it fits each guest,</span></div>
+      <div class="cap clip" id="cap25" data-start="60.38" data-duration="1.56" data-track-index="9"><span>which favourites pulled it in,</span></div>
+      <div class="cap clip" id="cap26" data-start="62.23" data-duration="2.31" data-track-index="9"><span>and what a single pooled recommendation would have</span></div>
+      <div class="cap clip" id="cap27" data-start="64.56" data-duration="0.7" data-track-index="9"><span>missed.</span></div>
+      <div class="cap clip" id="cap28" data-start="66.14" data-duration="0.9" data-track-index="9"><span>Under the hood:</span></div>
+      <div class="cap clip" id="cap29" data-start="67.31" data-duration="2.73" data-track-index="9"><span>Qloo search, insights with explainability,</span></div>
+      <div class="cap clip" id="cap30" data-start="70.21" data-duration="4.12" data-track-index="9"><span>per-guest ranking, cuisine tag affinities and audience comparison.</span></div>
+      <div class="cap clip" id="cap31" data-start="74.61" data-duration="1.94" data-track-index="9"><span>About fifty calls per evening,</span></div>
+      <div class="cap clip" id="cap32" data-start="76.71" data-duration="1.5" data-track-index="9"><span>cached and rate-limited.</span></div>
+    </div>
+    <script>
+      const tl = gsap.timeline({ paused: true });
+      const E = "power3.out";
+      const S = {"open": 0.0, "problem": 8.2, "builder": 16.19, "agent": 28.29, "results": 43.21, "evidence": 55.81, "qloo": 65.74, "end": 78.7};
+      const D = {"open": 8.65, "problem": 8.44, "builder": 12.55, "agent": 15.37, "results": 13.05, "evidence": 10.38, "qloo": 13.41, "end": 9.48};
+      // scene fade-ins (inner wrappers, never the clips themselves)
+      // open
+      tl.fromTo("#open-kb", { scale: 1.04 }, { scale: 1.12, duration: D.open, ease: "none" }, 0);
+      tl.fromTo("#open-eb", { opacity: 0, y: 14 }, { opacity: 1, y: 0, duration: 0.8, ease: E }, 0.4);
+      [["#ol1", 1.45], ["#ol2", 2.9], ["#ol3", 4.75], ["#ol4", 5.95]].forEach(([s, t]) =>
+        tl.fromTo(s, { opacity: 0, y: 28 }, { opacity: 1, y: 0, duration: 0.7, ease: E }, t));
+      // problem
+      tl.fromTo("#problem .copy", { opacity: 0 }, { opacity: 1, duration: 0.45 }, S.problem);
+      tl.fromTo("#prob-img", { scale: 1.08 }, { scale: 1.0, duration: D.problem, ease: "none" }, S.problem);
+      tl.fromTo("#bubble", { opacity: 0, y: 24 }, { opacity: 1, y: 0, duration: 0.6, ease: E }, S.problem + 0.6);
+      tl.fromTo("#strike", { scaleX: 0 }, { scaleX: 1, duration: 0.5, ease: "power2.inOut" }, S.problem + 4.0);
+      tl.fromTo("#bubble", { opacity: 1 }, { opacity: 0.55, duration: 0.5, immediateRender: false }, S.problem + 4.2);
+      tl.fromTo("#polite", { opacity: 0, y: 20 }, { opacity: 1, y: 0, duration: 0.7, ease: E }, S.problem + 4.6);
+      // builder: window rises in, then slow push towards the guest cards
+      tl.fromTo("#builder-group", { opacity: 0, y: 40, scale: 0.97 }, { opacity: 1, y: 0, scale: 1, duration: 0.7, ease: E }, S.builder);
+      tl.to("#builder-group", { scale: 1.12, y: 40, duration: 4, ease: "power2.inOut" }, S.builder + 5.5);
+      tl.fromTo("#builder-badge", { opacity: 0 }, { opacity: 1, duration: 0.5 }, S.builder + 0.5);
+      // agent: smaller window left, step rail right
+      tl.set("#agent-group", { left: 70, top: 110, width: 1520, height: 889, scale: 0.86, transformOrigin: "0% 0%" }, S.agent);
+      tl.fromTo("#agent-group", { opacity: 0, x: -30 }, { opacity: 1, x: 0, duration: 0.6, ease: E }, S.agent);
+      tl.set("#agent-badge", { left: 70, top: 900 }, S.agent);
+      tl.fromTo("#agent-badge", { opacity: 0 }, { opacity: 1, duration: 0.5 }, S.agent + 0.4);
+      tl.fromTo("#agent-scene .rail h3", { opacity: 0, y: 16 }, { opacity: 1, y: 0, duration: 0.6, ease: E }, S.agent + 0.3);
+      [["#st1", 1.6], ["#st2", 4.4], ["#st3", 7.0], ["#st4", 9.6]].forEach(([s, t]) => {
+        tl.fromTo(s, { opacity: 0.15, x: 20 }, { opacity: 1, x: 0, duration: 0.6, ease: E }, S.agent + t);
+      });
+      // results: window with section chips
+      tl.fromTo("#results-group", { opacity: 0, scale: 0.97 }, { opacity: 1, scale: 1, duration: 0.6, ease: E }, S.results);
+      tl.fromTo("#results-badge", { opacity: 0 }, { opacity: 1, duration: 0.5 }, S.results + 0.4);
+      ["#chip1", "#chip2", "#chip3", "#chip4", "#chip5"].forEach((c, k) =>
+        tl.fromTo(c, { opacity: 0, y: -10 }, { opacity: 1, y: 0, duration: 0.4, ease: E }, S.results + 1.2 + k * 2.2));
+      // evidence: pan across the film card's evidence
+      tl.fromTo("#evidence .card", { opacity: 0, y: 30 }, { opacity: 1, y: 0, duration: 0.6, ease: E }, S.evidence);
+      tl.fromTo("#ev-img", { scale: 1, x: 0, y: 0 }, { scale: 1.3, x: -200, y: -110, duration: 3.4, ease: "power2.inOut" }, S.evidence + 1.4);
+      tl.to("#ev-img", { scale: 1.3, x: -300, y: -233, duration: 3.0, ease: "power2.inOut" }, S.evidence + 5.6);
+      [["#n1", 0.9], ["#n2", 3.4], ["#n3", 5.9]].forEach(([s, t]) =>
+        tl.fromTo(s, { opacity: 0, x: 24 }, { opacity: 1, x: 0, duration: 0.6, ease: E }, S.evidence + t));
+      // qloo
+      tl.fromTo("#qloo .copy", { opacity: 0, y: 18 }, { opacity: 1, y: 0, duration: 0.6, ease: E }, S.qloo + 0.1);
+      [0, 1, 2, 3, 4].forEach((k) => tl.fromTo(`#tool${k}`, { opacity: 0, x: 30 }, { opacity: 1, x: 0, duration: 0.55, ease: E }, S.qloo + 0.9 + k * 1.15));
+      [["#s1", 8.6], ["#s2", 9.5], ["#s3", 10.4], ["#s4", 11.3]].forEach(([s, t]) =>
+        tl.fromTo(s, { opacity: 0, y: 14 }, { opacity: 1, y: 0, duration: 0.5, ease: E }, S.qloo + t));
+      // end
+      tl.fromTo("#end-kb", { scale: 1.1 }, { scale: 1.02, duration: D.end, ease: "none" }, S.end);
+      tl.fromTo("#mark", { opacity: 0, y: 24 }, { opacity: 1, y: 0, duration: 0.9, ease: E }, S.end + 0.4);
+      tl.fromTo("#tag", { opacity: 0, y: 18 }, { opacity: 1, y: 0, duration: 0.8, ease: E }, S.end + 1.6);
+      tl.fromTo(["#by", "#small"], { opacity: 0 }, { opacity: 1, duration: 0.8, stagger: 0.25 }, S.end + 3.0);
+      // captions fade
+      document.querySelectorAll(".cap span").forEach((el) => {
+        const c = el.parentElement; const s = parseFloat(c.dataset.start);
+        tl.fromTo(el, { opacity: 0 }, { opacity: 1, duration: 0.18 }, s);
+      });
+      window.__timelines["main"] = tl;
+    </script>
+  </body>
+</html>
