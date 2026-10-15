@@ -32,7 +32,7 @@ export function buildServer(config = loadConfig()) {
 
   const server = createServer(async (req, res) => {
     try {
-      const ip = (req.headers["fly-client-ip"] || req.headers["cf-connecting-ip"] || req.socket.remoteAddress || "").toString();
+      const ip = clientIp(req, config.trustProxyHeader);
       const url = `http://${req.headers.host || "localhost"}${req.url}`;
       const body = req.method === "GET" || req.method === "HEAD" ? undefined : await readBody(req);
       const request = new Request(url, { method: req.method, headers: req.headers, body });
@@ -45,6 +45,18 @@ export function buildServer(config = loadConfig()) {
     }
   });
   return { server, qloo };
+}
+
+// Client address for per-client rate limits. Behind a reverse proxy we control (for example
+// nginx setting X-Real-IP), TRUST_PROXY_HEADER names the one header to believe and every
+// other forwarding header is ignored, so a visitor cannot pick their own rate-limit bucket.
+export function clientIp(req, trustHeader) {
+  const remote = req.socket?.remoteAddress || "";
+  if (trustHeader) {
+    const value = (req.headers[trustHeader] || "").toString().split(",").pop().trim();
+    return value || remote;
+  }
+  return (req.headers["fly-client-ip"] || req.headers["cf-connecting-ip"] || remote).toString();
 }
 
 async function readBody(req) {

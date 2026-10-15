@@ -95,7 +95,7 @@ npm start                       # http://localhost:8787
 Optional: `QLOO_CACHE_DIR=.cache/qloo` keeps a private disk cache between restarts.
 
 ```sh
-npm test                        # 23 tests, synthetic data only, no network
+npm test                        # 24 tests, synthetic data only, no network
 npm run secret-scan             # run before every commit
 ```
 

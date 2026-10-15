@@ -11,7 +11,7 @@ Deadline: **2026-10-30 23:45 EDT = 2026-10-31 04:45 Belgium.** Target: everythin
 
 ## Before either step
 
-- [ ] `npm test` passes (23 tests).
+- [ ] `npm test` passes (24 tests).
 - [ ] `npm run secret-scan` is clean (checks tracked and untracked files for the configured
       key values and common credential patterns).
 - [ ] `git log -p | grep -i "x-api-key\|api_key"` shows only code, never a value.

@@ -7,6 +7,7 @@ import { QlooClient, encodeParams, describeRequest } from "../server/qloo.js";
 import { createApp, RateLimiter } from "../server/app.js";
 import { loadQlooKey } from "../server/config.js";
 import { makeNarrator } from "../server/narrator.js";
+import { clientIp } from "../server/node.js";
 import { makeFakeQloo, table } from "./fake-qloo.js";
 
 const FAKE_KEY = "test-key-not-real-0000";
@@ -136,4 +137,14 @@ test("narrator is optional and falls back cleanly", async () => {
   assert.ok(!JSON.stringify(sent).includes("vegan"));
   const failing = makeNarrator({ openaiKey: "k", openaiBaseUrl: "https://x.test/v1", openaiModel: "m" }, async () => new Response("no", { status: 500 }));
   assert.equal(await failing.write(plan), null);
+});
+
+test("client address: trusted proxy header only when configured", () => {
+  const req = (headers) => ({ headers, socket: { remoteAddress: "127.0.0.1" } });
+  // Default (e.g. Fly.io): the platform header is used.
+  assert.equal(clientIp(req({ "fly-client-ip": "203.0.113.5" }), null), "203.0.113.5");
+  // Behind our own proxy: spoofed platform headers are ignored, the trusted header wins.
+  assert.equal(clientIp(req({ "fly-client-ip": "198.51.100.1", "x-real-ip": "203.0.113.9" }), "x-real-ip"), "203.0.113.9");
+  // Trusted header missing: fall back to the socket, never to a client-supplied header.
+  assert.equal(clientIp(req({ "cf-connecting-ip": "198.51.100.2" }), "x-real-ip"), "127.0.0.1");
 });

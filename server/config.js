@@ -30,6 +30,8 @@ export function loadConfig(env = process.env) {
     planRateLimit: Number(env.PLAN_RATE_LIMIT || 6),
     searchRateLimit: Number(env.SEARCH_RATE_LIMIT || 60),
     cacheDir: env.QLOO_CACHE_DIR || null,
+    // Optional: the single forwarding header set by a trusted reverse proxy (e.g. "x-real-ip").
+    trustProxyHeader: (env.TRUST_PROXY_HEADER || "").trim().toLowerCase() || null,
     llm: {
       anthropicKey: env.ANTHROPIC_API_KEY || null,
       anthropicModel: env.ANTHROPIC_MODEL || "claude-sonnet-4-5",
