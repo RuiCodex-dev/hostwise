@@ -1,7 +1,12 @@
-# Publish checklist (needs the owner's approval)
+# Publish checklist
 
-Nothing in this project has been pushed, published or deployed. The repository is local
-git only. Two separate approvals are needed before submission:
+> **Status 2026-10-15 (owner approved both steps):** the repository is public at
+> <https://github.com/RuiCodex-dev/hostwise> (MIT) and the demo is live at
+> <https://hostwise.ruicodex.com>, hosted on the owner's own server (Docker container behind
+> nginx and IIS, Let's Encrypt certificate). Fly.io/Render below were not used. Remaining: the
+> Devpost submission (section 3).
+
+Two separate approvals were needed before submission:
 
 1. **Publishing the repository** (public GitHub repo with the MIT licence visible).
 2. **Deploying the hosted demo** (the rules disqualify demos that "only run locally").

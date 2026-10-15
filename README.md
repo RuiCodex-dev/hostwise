@@ -10,6 +10,9 @@ cross-domain taste graph and shows its evidence.
 
 Built by **Rui Codex** for the [Qloo Agentic Hackathon](https://qloo.devpost.com/).
 
+**Live demo:** <https://hostwise.ruicodex.com> (no login; click **Try a sample table**, then
+**Plan the evening**) · **Code:** <https://github.com/RuiCodex-dev/hostwise> (MIT)
+
 ![Hostwise landing page](press/01-landing.png)
 
 ## Why it needs Qloo
@@ -100,6 +103,11 @@ npm run secret-scan             # run before every commit
 ```
 
 Docker: `docker build -t hostwise . && docker run -p 8080:8080 -e QLOO_API_KEY hostwise`.
+
+Behind your own reverse proxy, set `TRUST_PROXY_HEADER` to the one header the proxy writes
+with the client address (for example `x-real-ip`) so per-client rate limits work and
+client-supplied forwarding headers are ignored. The live demo runs this way: the container
+sits behind nginx and IIS, with the Qloo key in a root-only environment file on the host.
 
 ## Project layout
 

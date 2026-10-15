@@ -1,14 +1,14 @@
 # Devpost submission draft: Hostwise
 
-> Draft for the owner. Fill the two links once the repo is public and the demo is deployed.
-> Nothing here has been submitted.
+> Draft for the owner. The repo is public and the demo is live (2026-10-15).
+> Nothing here has been submitted to Devpost yet.
 
 - **Project name:** Hostwise
 - **Tagline (under 200 chars):** A hosting agent that plans dinner for people who don't share a
   taste: seating, menu, soundtrack, film and conversation, scored for every guest in Qloo's
   taste graph.
-- **Live demo:** `https://<to be deployed>`
-- **Code:** `https://github.com/<owner>/hostwise` (MIT)
+- **Live demo:** https://hostwise.ruicodex.com
+- **Code:** https://github.com/RuiCodex-dev/hostwise (MIT)
 - **Video (optional):** `video/demo-final.mp4` (1 min 28 s)
 - **Built with:** Qloo Taste AI API (search, insights, explainability, tag insights,
   analysis/compare), Node.js 22, vanilla JavaScript, Server-Sent Events, HyperFrames (video)
