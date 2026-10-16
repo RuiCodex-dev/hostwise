@@ -27,6 +27,10 @@ export class RateLimiter {
   }
 }
 
+// Favourite kinds the app offers (and /api/search accepts). An explicit list, so a request
+// for "__proto__", "toString" or an unoffered type is refused here instead of costing a Qloo call.
+export const SEARCH_KINDS = Object.keys(ENTITY_TYPES).filter((k) => !["place", "brand", "person"].includes(k));
+
 export function createApp({ qloo, narrator = null, config }) {
   const planLimiter = new RateLimiter(config.planRateLimit, 10 * 60e3);
   const searchLimiter = new RateLimiter(config.searchRateLimit, 60e3);
@@ -41,14 +45,15 @@ export function createApp({ qloo, narrator = null, config }) {
     }
 
     if (url.pathname === "/api/meta") {
-      return json({ kinds: Object.keys(ENTITY_TYPES).filter((k) => !["place", "brand", "person"].includes(k)), diets: Object.fromEntries(Object.entries(DIETS).map(([k, v]) => [k, v.label])), tools: TOOL_DEFS });
+      return json({ kinds: SEARCH_KINDS, diets: Object.fromEntries(Object.entries(DIETS).map(([k, v]) => [k, v.label])), tools: TOOL_DEFS });
     }
 
     if (url.pathname === "/api/search" && request.method === "GET") {
       const q = (url.searchParams.get("q") || "").trim();
       const kind = url.searchParams.get("kind") || "movie";
-      if (q.length < 2 || q.length > 80) return json({ error: "Type at least two characters." }, 400);
-      if (!ENTITY_TYPES[kind]) return json({ error: "Unknown kind." }, 400);
+      if (q.length < 2) return json({ error: "Type at least two characters." }, 400);
+      if (q.length > 80) return json({ error: "Keep it under 80 characters." }, 400);
+      if (!SEARCH_KINDS.includes(kind)) return json({ error: "Unknown kind." }, 400);
       const wait = searchLimiter.take(ip);
       if (wait) return json({ error: "Slow down a little." }, 429, { "retry-after": String(wait) });
       try {
@@ -74,18 +79,26 @@ export function createApp({ qloo, narrator = null, config }) {
       if (wait) return json({ error: `You've planned a lot of dinners. Try again in ${Math.ceil(wait / 60)} min.` }, 429, { "retry-after": String(wait) });
 
       const enc = new TextEncoder();
+      // When the visitor closes the page the stream is cancelled; stop the agent there so an
+      // abandoned plan spends no more of the Qloo quota.
+      const abort = new AbortController();
       const stream = new ReadableStream({
         async start(controller) {
-          const send = (ev) => controller.enqueue(enc.encode(`data: ${JSON.stringify(ev)}\n\n`));
-          const planner = new Planner({ qloo, narrator, emit: send });
+          const send = (ev) => {
+            if (!abort.signal.aborted) controller.enqueue(enc.encode(`data: ${JSON.stringify(ev)}\n\n`));
+          };
+          const planner = new Planner({ qloo, narrator, emit: send, signal: abort.signal });
           try {
             const plan = await planner.run(body);
             send({ type: "done", plan });
           } catch (err) {
             send({ type: "error", message: friendly(err) });
           } finally {
-            controller.close();
+            if (!abort.signal.aborted) controller.close();
           }
+        },
+        cancel() {
+          abort.abort();
         },
       });
       // Plain "text/event-stream" (SSE is UTF-8 by definition): with a charset parameter, IIS/ARR

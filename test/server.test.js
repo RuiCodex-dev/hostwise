@@ -148,3 +148,74 @@ test("client address: trusted proxy header only when configured", () => {
   // Trusted header missing: fall back to the socket, never to a client-supplied header.
   assert.equal(clientIp(req({ "cf-connecting-ip": "198.51.100.2" }), "x-real-ip"), "127.0.0.1");
 });
+
+test("API: search refuses unoffered and prototype kinds without calling Qloo", async () => {
+  const qloo = makeFakeQloo();
+  const app = createApp({ qloo, config: { planRateLimit: 5, searchRateLimit: 50 } });
+  for (const kind of ["__proto__", "toString", "constructor", "place", "person", "brand"]) {
+    const res = await app(new Request(`http://x/api/search?q=abc&kind=${kind}`), { ip: "1" });
+    assert.equal(res.status, 400, kind);
+  }
+  const long = await app(new Request(`http://x/api/search?q=${"z".repeat(81)}&kind=movie`), { ip: "1" });
+  assert.equal(long.status, 400);
+  assert.match((await long.json()).error, /under 80/);
+  assert.equal(qloo.calls.length, 0);
+});
+
+test("API: malformed guests and diets are a 400, not a 500, and cost no plan slot", async () => {
+  const qloo = makeFakeQloo();
+  const app = createApp({ qloo, config: { planRateLimit: 1, searchRateLimit: 5 } });
+  const post = (body) => app(new Request("http://x/api/plan", { method: "POST", body: JSON.stringify(body) }), { ip: "7" });
+  assert.equal((await post({ guests: [null, null] })).status, 400);
+  const t = table(2);
+  t.guests[0].diets = "vegan";
+  assert.equal((await post(t)).status, 400);
+  assert.equal(qloo.calls.length, 0);
+  assert.equal((await post(table(2))).status, 200); // the single plan slot is still free
+});
+
+test("API: a cancelled plan stream stops calling Qloo", async () => {
+  const qloo = makeFakeQloo();
+  const app = createApp({ qloo, config: { planRateLimit: 5, searchRateLimit: 5 } });
+  const res = await app(new Request("http://x/api/plan", { method: "POST", body: JSON.stringify(table(4)) }), { ip: "8" });
+  const reader = res.body.getReader();
+  await reader.read();
+  await reader.cancel();
+  await new Promise((r) => setTimeout(r, 50));
+  const after = qloo.calls.length;
+  await new Promise((r) => setTimeout(r, 50));
+  assert.equal(qloo.calls.length, after);
+  assert.ok(after < 10, `expected the agent to stop early, saw ${after} calls`);
+});
+
+test("node server: a malformed URL is a 400 and does not take the process down", async () => {
+  const { buildServer } = await import("../server/node.js");
+  const { server } = buildServer({ ...loadConfigNoKey(), port: 0 });
+  await new Promise((r) => server.listen(0, "127.0.0.1", r));
+  const base = `http://127.0.0.1:${server.address().port}`;
+  try {
+    const { request } = await import("node:http");
+    const raw = (path, method = "GET") =>
+      new Promise((resolve, reject) => {
+        const req = request(`${base}${path}`, { method }, (res) => {
+          res.resume();
+          res.on("end", () => resolve(res));
+        });
+        req.on("error", reject);
+        req.end();
+      });
+    assert.equal((await raw("/%E0%A4%A")).statusCode, 400);
+    assert.equal((await raw("/")).statusCode, 200);
+    assert.equal((await raw("/no-such-page")).statusCode, 404);
+    assert.equal((await raw("/.env")).statusCode, 404);
+    const head = await raw("/", "HEAD");
+    assert.equal(head.statusCode, 200);
+    assert.ok(Number(head.headers["content-length"]) > 1000);
+  } finally {
+    await new Promise((r) => server.close(r));
+  }
+});
+
+function loadConfigNoKey() {
+  return { qlooBaseUrl: "https://x.test", qlooKey: null, dailyCallCap: 10, cacheDir: null, planRateLimit: 1, searchRateLimit: 1, trustProxyHeader: null, llm: {} };
+}

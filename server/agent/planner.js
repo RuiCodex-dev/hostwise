@@ -10,7 +10,7 @@
 // The loop is deterministic; an optional LLM only words the host's note.
 import { rankForGroup, fairnessGap, LEFT_OUT } from "./fairness.js";
 import { bestSeating } from "./seating.js";
-import { CUISINES, cuisineForTag, buildMenu, pickDish, dietNeeds } from "./cuisine.js";
+import { CUISINES, DIETS, cuisineForTag, buildMenu, pickDish, dietNeeds } from "./cuisine.js";
 import { sharedCard, contrastCard, destinationCard, filmCard, pickShared, pickDistinct, pairSimilarity, rankShared } from "./conversation.js";
 import { makeTools } from "./tools.js";
 
@@ -38,6 +38,10 @@ export function validateTable(input) {
   if (guests.length < 2) return "Add at least two guests.";
   if (guests.length > MAX_GUESTS) return `Hostwise plans for up to ${MAX_GUESTS} guests.`;
   for (const [i, g] of guests.entries()) {
+    if (!g || typeof g !== "object") return `Guest ${i + 1} is not a valid guest.`;
+    if (g.diets !== undefined && (!Array.isArray(g.diets) || g.diets.length > 10 || g.diets.some((d) => typeof d !== "string"))) {
+      return `Guest ${i + 1} has invalid dietary needs.`;
+    }
     const favs = Array.isArray(g.favourites) ? g.favourites : [];
     if (!favs.length) return `Guest ${i + 1} needs at least one favourite.`;
     if (favs.length > 6) return `Guest ${i + 1} has more than six favourites.`;
@@ -49,7 +53,8 @@ export function validateTable(input) {
 }
 
 export class Planner {
-  constructor({ qloo, narrator = null, emit = () => {} }) {
+  constructor({ qloo, narrator = null, emit = () => {}, signal = null }) {
+    this.signal = signal;
     this.tools = makeTools(qloo);
     this.qloo = qloo;
     this.narrator = narrator;
@@ -62,6 +67,11 @@ export class Planner {
   }
 
   async call(tool, args, label) {
+    if (this.signal?.aborted) {
+      const err = new Error("The visitor left; planning stopped.");
+      err.code = "ABORTED";
+      throw err;
+    }
     const id = `t${++this.step}`;
     this.emit({ type: "tool", id, tool, label, status: "running" });
     try {
@@ -70,7 +80,7 @@ export class Planner {
       return observation;
     } catch (err) {
       this.emit({ type: "tool", id, tool, label, status: "error", error: { code: err.code || "ERROR", message: err.message } });
-      if (err.code === "QLOO_DAILY_CAP" || err.code === "QLOO_AUTH") throw err;
+      if (err.code === "QLOO_DAILY_CAP" || err.code === "QLOO_AUTH" || this.signal?.aborted) throw err;
       return null;
     }
   }
@@ -80,7 +90,8 @@ export class Planner {
       index: i,
       ids: g.favourites.map((f) => f.id),
       favourites: g.favourites.map((f) => ({ id: f.id, name: String(f.name || "").slice(0, 120), kind: f.kind || null })),
-      diets: (g.diets || []).filter((d) => typeof d === "string"),
+      // Only diets Hostwise has dishes for; anything else is ignored rather than counted.
+      diets: [...new Set((g.diets || []).filter((d) => typeof d === "string" && Object.hasOwn(DIETS, d)))],
     }));
     this.guests = guests;
     this.owner = new Map();
@@ -382,7 +393,10 @@ export class Planner {
       const r = info.get(`${far[0]}-${far[1]}`);
       const da = pickDistinct(r?.a || []);
       const db = pickDistinct(r?.b || [], new Set(da ? [da.name.toLowerCase()] : []));
-      if (da && db) cards.push(contrastCard(da, db, far[0], far[1]));
+      // With two guests (or when the most different pair already sits together without a
+      // shared thread) this card would repeat that pair's seating card word for word.
+      const card = da && db ? contrastCard(da, db, far[0], far[1]) : null;
+      if (card && !cards.some((c) => c.text === card.text)) cards.push(card);
     }
     this.think(
       `Seating: ${order.map(G).join(" → ")} → back to ${G(order[0])}. I maximised the weakest neighbour pair first, then gave each pair its own conversation thread.`,

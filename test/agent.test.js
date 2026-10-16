@@ -151,3 +151,18 @@ test("a failing tool degrades a section instead of crashing the plan", async () 
   assert.ok(events.some((e) => e.type === "tool" && e.status === "error"));
   assert.ok(plan.sections.menu);
 });
+
+test("two guests: no duplicate conversation card, unknown diets ignored", async () => {
+  const qloo = makeFakeQloo();
+  // No shared ground between the pair, so the seating card is a contrast card.
+  qloo.compare = async () => ({ body: { results: { tags: [], a: [{ name: "Whimsical", subtype: "urn:tag:subgenre:qloo" }], b: [{ name: "Gritty", subtype: "urn:tag:style:qloo" }] } }, cached: false, ms: 1 });
+  const t = table(2);
+  t.guests[1].diets = ["bogus_diet", "vegan", "vegan"];
+  const events = [];
+  const plan = await new Planner({ qloo, emit: (e) => events.push(e) }).run(t);
+  const texts = plan.sections.deck.cards.map((c) => c.text);
+  assert.equal(new Set(texts).size, texts.length);
+  assert.ok(texts.some((x) => /leans/.test(x)));
+  const menuThought = events.find((e) => e.type === "thought" && /dietary need/.test(e.text));
+  assert.match(menuThought.text, / 1 dietary need locally/);
+});

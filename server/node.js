@@ -37,9 +37,12 @@ export function buildServer(config = loadConfig()) {
       const body = req.method === "GET" || req.method === "HEAD" ? undefined : await readBody(req);
       const request = new Request(url, { method: req.method, headers: req.headers, body });
       const response = await app(request, { ip });
-      if (response) return pipe(response, res);
-      return serveStatic(req, res);
+      // Awaited so a rejection lands in the catch below instead of becoming an unhandled
+      // rejection, which terminates the Node process.
+      if (response) return await pipe(response, res);
+      return await serveStatic(req, res);
     } catch (err) {
+      if (res.headersSent) return res.destroy();
       res.writeHead(500, { "content-type": "text/plain", ...SECURITY_HEADERS });
       res.end("Internal error");
     }
@@ -85,8 +88,15 @@ async function pipe(response, res) {
 }
 
 async function serveStatic(req, res) {
-  let path = decodeURIComponent(new URL(req.url, "http://x").pathname);
-  if (path === "/" || !extname(path)) path = "/index.html";
+  let path;
+  try {
+    path = decodeURIComponent(new URL(req.url, "http://x").pathname);
+  } catch {
+    res.writeHead(400, { ...SECURITY_HEADERS, "content-type": "text/plain" });
+    return res.end("Bad request");
+  }
+  // The app has a single page: "/" serves it, and unknown paths are a real 404, not a copy of it.
+  if (path === "/") path = "/index.html";
   const file = normalize(join(PUBLIC, path));
   if (!file.startsWith(PUBLIC)) {
     res.writeHead(403, SECURITY_HEADERS);
@@ -98,7 +108,7 @@ async function serveStatic(req, res) {
     const data = await readFile(file);
     const ext = extname(file);
     const longCache = [".woff2", ".webp", ".png", ".jpg"].includes(ext);
-    res.writeHead(200, { ...SECURITY_HEADERS, "content-type": TYPES[ext] || "application/octet-stream", "cache-control": longCache ? "public, max-age=604800" : "no-cache" });
+    res.writeHead(200, { ...SECURITY_HEADERS, "content-type": TYPES[ext] || "application/octet-stream", "content-length": data.length, "cache-control": longCache ? "public, max-age=604800" : "no-cache" });
     res.end(req.method === "HEAD" ? undefined : data);
   } catch {
     res.writeHead(404, { ...SECURITY_HEADERS, "content-type": "text/plain" });
