@@ -98,7 +98,7 @@ npm start                       # http://localhost:8787
 Optional: `QLOO_CACHE_DIR=.cache/qloo` keeps a private disk cache between restarts.
 
 ```sh
-npm test                        # 24 tests, synthetic data only, no network
+npm test                        # 29 tests, synthetic data only, no network
 npm run secret-scan             # run before every commit
 ```
 
@@ -114,7 +114,7 @@ sits behind nginx and IIS, with the Qloo key in a root-only environment file on 
 ```
 server/
   node.js          Node HTTP entry: static files, security headers
-  app.js           Web-standard request handler: /api/search, /api/plan (SSE), /api/health
+  app.js           Web-standard request handler: /api/search, /api/plan (SSE), /api/health, /api/meta
   qloo.js          Qloo client: header auth, cache, pacing, bounded retry, daily cap
   agent/
     planner.js     The agent loop (goals, critique, re-plan, evidence)
