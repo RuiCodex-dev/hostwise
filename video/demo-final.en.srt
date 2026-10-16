@@ -1,0 +1,132 @@
+1
+00:00:01,490 --> 00:00:04,470
+Six colleagues. Six different tastes.
+
+2
+00:00:04,730 --> 00:00:06,730
+One table. And tonight,
+
+3
+00:00:06,750 --> 00:00:07,710
+you're the host.
+
+4
+00:00:08,590 --> 00:00:09,730
+Ask a chatbot,
+
+5
+00:00:09,870 --> 00:00:11,870
+and you'll get a crowd-pleasing film and some
+
+6
+00:00:11,890 --> 00:00:15,700
+pasta. Someone always spends the evening being polite.
+
+7
+00:00:16,600 --> 00:00:19,600
+Hostwise starts with what each guest actually loves:
+
+8
+00:00:19,880 --> 00:00:21,070
+a couple of films,
+
+9
+00:00:21,100 --> 00:00:22,830
+artists, shows or books.
+
+10
+00:00:23,090 --> 00:00:25,610
+Each one is matched in Qloo's taste graph,
+
+11
+00:00:25,760 --> 00:00:27,800
+and the names never leave your browser.
+
+12
+00:00:28,680 --> 00:00:30,170
+Then the agent plans.
+
+13
+00:00:30,430 --> 00:00:31,900
+It pools the whole table,
+
+14
+00:00:32,060 --> 00:00:34,530
+scores every option against each guest on their
+
+15
+00:00:34,550 --> 00:00:36,800
+own, and critiques its own pick.
+
+16
+00:00:37,120 --> 00:00:39,450
+Here, The Smiths would leave Ana and Leila
+
+17
+00:00:39,470 --> 00:00:41,930
+behind, so it re-plans from their side of
+
+18
+00:00:41,950 --> 00:00:42,720
+the graph.
+
+19
+00:00:43,620 --> 00:00:45,630
+You get seating built from what neighbours really
+
+20
+00:00:45,650 --> 00:00:49,040
+share, a menu inferred from cross-domain taste and
+
+21
+00:00:49,060 --> 00:00:50,900
+adapted to dietary needs,
+
+22
+00:00:51,260 --> 00:00:53,020
+a soundtrack in three moods,
+
+23
+00:00:53,160 --> 00:00:55,330
+and a film short enough for after dinner.
+
+24
+00:00:56,230 --> 00:00:58,280
+And every pick shows its evidence:
+
+25
+00:00:58,610 --> 00:01:00,320
+how well it fits each guest,
+
+26
+00:01:00,380 --> 00:01:01,940
+which favourites pulled it in,
+
+27
+00:01:02,230 --> 00:01:04,540
+and what a single pooled recommendation would have
+
+28
+00:01:04,560 --> 00:01:05,260
+missed.
+
+29
+00:01:06,140 --> 00:01:07,040
+Under the hood:
+
+30
+00:01:07,310 --> 00:01:10,040
+Qloo search, insights with explainability,
+
+31
+00:01:10,210 --> 00:01:14,330
+per-guest ranking, cuisine tag affinities and audience comparison.
+
+32
+00:01:14,610 --> 00:01:16,550
+About fifty calls per evening,
+
+33
+00:01:16,710 --> 00:01:18,210
+cached and rate-limited.
+

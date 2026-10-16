@@ -35,7 +35,10 @@ export const ENTITY_TYPES = {
 const sleep = (ms) => new Promise((r) => setTimeout(r, ms));
 
 export class QlooClient {
-  constructor({ apiKey, baseUrl, dailyCap = 1500, cacheDir = null, fetchImpl = globalThis.fetch, ttlMs = 6 * 3600e3, maxEntries = 2000, retryDelayMs = 600, minIntervalMs = 250 }) {
+  constructor({ apiKey, baseUrl, dailyCap = 1500, cacheDir = null, fetchImpl = globalThis.fetch, ttlMs = 6 * 3600e3, maxEntries = 2000, retryDelayMs = 600, minIntervalMs = 250, searchShare = 0.4 }) {
+    // Favourite look-ups (typing in the guest form) may use at most this share of the daily cap,
+    // so one visitor typing quickly cannot spend the quota that judges need for whole plans.
+    this.searchCap = Math.max(1, Math.floor(dailyCap * searchShare));
     this.minIntervalMs = minIntervalMs;
     this.nextSlot = 0;
     this.apiKey = apiKey;
@@ -48,7 +51,7 @@ export class QlooClient {
     this.retryDelayMs = retryDelayMs;
     this.cache = new Map();
     this.inflight = new Map();
-    this.stats = { live: 0, cached: 0, errors: 0, day: today(), dayLive: 0, byStatus: {} };
+    this.stats = { live: 0, cached: 0, errors: 0, day: today(), dayLive: 0, daySearchLive: 0, byStatus: {} };
     if (cacheDir) mkdirSync(cacheDir, { recursive: true });
   }
 
@@ -57,7 +60,7 @@ export class QlooClient {
   }
 
   usage() {
-    return { live: this.stats.live, cached: this.stats.cached, errors: this.stats.errors, byStatus: { ...this.stats.byStatus }, today: this.stats.dayLive, dailyCap: this.dailyCap };
+    return { live: this.stats.live, cached: this.stats.cached, errors: this.stats.errors, byStatus: { ...this.stats.byStatus }, today: this.stats.dayLive, dailyCap: this.dailyCap, searchToday: this.stats.daySearchLive, searchCap: this.searchCap };
   }
 
   // GET a Qloo path with query params. Returns { body, cached, ms }.
@@ -77,7 +80,7 @@ export class QlooClient {
       this.stats.cached++;
       return { body, cached: true, ms: Date.now() - t0 };
     }
-    const p = this.#live(path, qs).then((body) => {
+    const p = this.#live(path, qs, path === "/search").then((body) => {
       this.#writeCache(key, body);
       return body;
     });
@@ -90,10 +93,13 @@ export class QlooClient {
     }
   }
 
-  async #live(path, qs) {
+  async #live(path, qs, isSearch = false) {
     let lastErr;
     for (let attempt = 0; attempt < 3; attempt++) {
       this.#rollDay();
+      if (isSearch && this.stats.daySearchLive >= this.searchCap) {
+        throw new QlooError("QLOO_DAILY_CAP", "The demo has used today's share of live favourite look-ups. Please try a sample table, or come back tomorrow.");
+      }
       if (this.stats.dayLive >= this.dailyCap) {
         throw new QlooError("QLOO_DAILY_CAP", "The demo has used today's share of the Qloo event quota. Please try a sample table, or come back tomorrow.");
       }
@@ -104,6 +110,7 @@ export class QlooClient {
       if (wait) await sleep(wait);
       this.stats.live++;
       this.stats.dayLive++;
+      if (isSearch) this.stats.daySearchLive++;
       let res;
       try {
         res = await this.fetch(`${this.baseUrl}${path}?${qs}`, {
@@ -138,6 +145,7 @@ export class QlooClient {
     if (d !== this.stats.day) {
       this.stats.day = d;
       this.stats.dayLive = 0;
+      this.stats.daySearchLive = 0;
     }
   }
 

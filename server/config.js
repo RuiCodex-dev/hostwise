@@ -28,7 +28,7 @@ export function loadConfig(env = process.env) {
     dailyCallCap: Number(env.QLOO_DAILY_CALL_CAP || 1500),
     // Plans per client address per 10 minutes.
     planRateLimit: Number(env.PLAN_RATE_LIMIT || 6),
-    searchRateLimit: Number(env.SEARCH_RATE_LIMIT || 60),
+    searchRateLimit: Number(env.SEARCH_RATE_LIMIT || 30),
     cacheDir: env.QLOO_CACHE_DIR || null,
     // Optional: the single forwarding header set by a trusted reverse proxy (e.g. "x-real-ip").
     trustProxyHeader: (env.TRUST_PROXY_HEADER || "").trim().toLowerCase() || null,

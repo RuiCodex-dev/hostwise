@@ -77,8 +77,9 @@ the finished plan. It is off unless `ANTHROPIC_API_KEY` or an OpenAI-compatible
 - Qloo responses are cached privately on the server (memory, optional local disk directory
   that is git-ignored). No Qloo response data is committed; tests use synthetic fixtures.
 - Live calls are paced, bounded-retried on 429/5xx, and capped per UTC day
-  (`QLOO_DAILY_CALL_CAP`, default 1500) to protect the event quota. Plans and searches are
-  rate-limited per client.
+  (`QLOO_DAILY_CALL_CAP`, default 1500) to protect the event quota. Live favourite look-ups may use at
+  most 40 % of that cap, so typing in the guest form can never use up the quota that plans need.
+  Plans and searches are rate-limited per client.
 - Strict Content-Security-Policy, no third-party scripts, fonts self-hosted.
 
 Qloo results describe aggregate affinities, not individuals. Hostwise presents them as a
@@ -98,7 +99,7 @@ npm start                       # http://localhost:8787
 Optional: `QLOO_CACHE_DIR=.cache/qloo` keeps a private disk cache between restarts.
 
 ```sh
-npm test                        # 29 tests, synthetic data only, no network
+npm test                        # 30 tests, synthetic data only, no network
 npm run secret-scan             # run before every commit
 ```
 

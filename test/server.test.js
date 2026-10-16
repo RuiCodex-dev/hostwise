@@ -57,6 +57,18 @@ test("daily cap stops live calls", async () => {
   await assert.rejects(q.insights({ a: 2 }), (e) => e.code === "QLOO_DAILY_CAP");
 });
 
+test("searches may only use their share of the daily cap, leaving the rest for plans", async () => {
+  const f = mockFetch([]);
+  const q = new QlooClient({ apiKey: FAKE_KEY, baseUrl: "https://x.test", fetchImpl: f, dailyCap: 10, searchShare: 0.2, minIntervalMs: 0 });
+  await q.search("a", "urn:entity:movie");
+  await q.search("b", "urn:entity:movie");
+  await assert.rejects(q.search("c", "urn:entity:movie"), (e) => e.code === "QLOO_DAILY_CAP");
+  await q.search("a", "urn:entity:movie"); // a cached search still answers
+  await q.insights({ a: 1 }); // plans keep the rest of the cap
+  assert.equal(f.seen.length, 3);
+  assert.equal(q.usage().searchToday, 2);
+});
+
 test("no key configured is a clear error, not a request", async () => {
   const f = mockFetch([]);
   const q = new QlooClient({ apiKey: null, baseUrl: "https://x.test", fetchImpl: f });
